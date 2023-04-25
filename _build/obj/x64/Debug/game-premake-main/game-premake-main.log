@@ -1,0 +1,6 @@
+﻿  Ship.cpp
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(15,41): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(16,38): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(17,49): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(18,43): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+  game-premake-main.vcxproj -> C:\Users\Feder\source\repos\QuarkGameJam3\_bin\Debug\game-premake-main.exe
