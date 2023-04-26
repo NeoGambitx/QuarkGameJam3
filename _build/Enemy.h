@@ -12,6 +12,7 @@ protected:
 	int speed;
 	int frame;
 	float shootDelay;
+	int screenLimit;
 
 public:
 	Enemy() {}
@@ -25,4 +26,6 @@ public:
 	virtual bool doesItKillme(int damage) = 0;
 	virtual void tookDamage(int damage) = 0;
 	virtual bool canShoot() = 0;
+	virtual bool isOffScreen() = 0;
+	virtual int getDamage() = 0;
 };

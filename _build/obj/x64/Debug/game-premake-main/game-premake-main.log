@@ -1,6 +1,15 @@
-﻿  Ship.cpp
+﻿  EnemyFactory.cpp
+  Presenter.cpp
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Presenter.h(4,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Presenter.cpp(46,40): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Presenter.cpp(46,40): warning C4305: 'inicializando': truncamiento de 'double' a 'const float'
+  Ship.cpp
 C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(15,41): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
 C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(16,38): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
 C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(17,49): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
 C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(18,43): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+  View.cpp
+  main.cpp
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Presenter.h(4,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
+  Generando código...
   game-premake-main.vcxproj -> C:\Users\Feder\source\repos\QuarkGameJam3\_bin\Debug\game-premake-main.exe

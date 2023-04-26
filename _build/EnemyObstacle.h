@@ -4,7 +4,7 @@
 class EnemyObstacle : public Enemy
 {
 public:
-	EnemyObstacle();
+	EnemyObstacle(int screenWidth, int screenHeight);
 	~EnemyObstacle();
 	virtual void movementMechanics() override;
 	virtual Texture2D getTexture() override;
@@ -15,4 +15,6 @@ public:
 	virtual bool doesItKillme(int damage) override;
 	virtual void tookDamage(int damage) override;
 	virtual bool canShoot() override;
+	bool isOffScreen();
+	int getDamage();
 };

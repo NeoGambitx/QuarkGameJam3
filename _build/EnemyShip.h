@@ -21,4 +21,6 @@ public:
 	virtual bool doesItKillme(int damage) override;
 	virtual void tookDamage(int damage) override;
 	bool canShoot();
+	bool isOffScreen();
+	int getDamage();
 };

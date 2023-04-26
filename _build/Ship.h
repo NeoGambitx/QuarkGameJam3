@@ -49,6 +49,7 @@ public:
 	void moveDown();
 	void tookDamage(int damage);
 	float getShootDelay();
+	void setShootDelay(float delay);
 	Rectangle getCollisionBox();
 	bool doesItKillme(int damage);
 };

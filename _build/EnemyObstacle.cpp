@@ -8,10 +8,34 @@
 #define VIEWPORT_WIDTH 100
 
 // Derived Enemy class
-EnemyObstacle::EnemyObstacle()
-{
-	this->damage = 30;
+EnemyObstacle::EnemyObstacle(int screenWidth, int screenHeight){
+
+	int i = rand() % 3 + 1; // Tipo de Power UP RANDOM . 1 a 3
+	int x = 20 + rand() % screenWidth + 1 - 40;
+	int vel = rand() % 5 + 1;
+
+	if (i == 1) {
+		this->sprite = LoadTexture("resources/sprites/enemies/asteroid.png");
+		this->damage = 0;
+	}
+	else if (i == 2) {
+		this->sprite = LoadTexture("resources/sprites/enemies/asteroid2.png");
+		this->damage = 0;
+	}
+	else {
+		this->sprite = LoadTexture("resources/sprites/enemies/asteroidBig.png");
+		this->damage = 30;
+	}
 	this->health = 10;
+	this->position.x = x;
+	this->position.y = -30;
+	this->speed = vel;
+	this->screenLimit = screenHeight + 30;
+	this->rec.x = 0;
+	this->rec.y = 0;
+	this->rec.width = this->sprite.width;
+	this->rec.height = this->sprite.height;
+
 }
 
 // Derived class destructor
@@ -32,32 +56,13 @@ Rectangle EnemyObstacle::getRec() {
 }
 
 void EnemyObstacle::animacion() {
-	this->rec.x = this->frame * this->rec.width;
-	this->frame++;
-	//Volvemos al 1er Frame de animación
-	if (this->frame > 4) {
-		this->frame = 0;
-	}
+
 }
 
 
 void EnemyObstacle::movementMechanics()
 {
-	srand((unsigned)time(NULL));
-
-	// Necessary values
-	int displacement = 0;
-	const int randomXPosition = rand() % VIEWPORT_WIDTH;
-
-	//Set position on X axis
-	//this->setPositionX(randomXPosition);
-
-	// Movement
-	while (displacement <= VIEWPORT_HEIGHT)
-	{
-		//this->setPositionY(VIEWPORT_HEIGHT - displacement);
-		//Sleep(1);
-	}
+	this->position.y += this->speed;
 }
 
 Rectangle EnemyObstacle::getCollisionBox() {
@@ -83,4 +88,13 @@ void EnemyObstacle::tookDamage(int damage) {
 
 bool EnemyObstacle::canShoot() {
 	return false;
+}
+
+bool EnemyObstacle::isOffScreen() {
+	if (this->position.y >= this->screenLimit) return true;
+	else return false;
+}
+
+int EnemyObstacle::getDamage() {
+	return this->damage;
 }

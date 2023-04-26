@@ -49,7 +49,7 @@ void Presenter::startGame()
     
     //NIVEL1
     bool level1Exit = false;
-    unsigned const int level1Ciclos = 60;
+    const int level1Ciclos = 60;
     int level1ContadorCiclos{};
     int level1Frames = 0;
 
@@ -96,6 +96,7 @@ void Presenter::startGame()
             {
                 vista->setCurrentScreen(TITLE);
             }
+
         }
         break;
         case TITLE:
@@ -107,13 +108,21 @@ void Presenter::startGame()
                 
                 if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) || IsKeyPressed(KEY_S)) {
                     opcionTitulo = 2;
+                    soundManager->playSoundSelect();
                 }
 
                 if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-                {
+                {   
                     soundManager->playSoundStart();
+                    //Reiniciamos Variables para comenzar NIVEL 1 (Por si pierde y vuelve a intentar)
                     mainShip->setLives(3);
                     mainShip->setHealth(100);
+                    enemyList.clear();
+                    listaProyectiles.clear();
+                    level1ContadorCiclos = 0;
+                    level1Frames = 0;
+                    explosionManager.clear();
+                    PowerUpEnPantalla = false;
                     WaitTime(2);
                     vista->setCurrentScreen(PROLOGUE);
                 }
@@ -121,11 +130,14 @@ void Presenter::startGame()
             else {
                 if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) || IsKeyPressed(KEY_S)) {
                     opcionTitulo = 1;
+                    soundManager->playSoundSelect();
                 }
                 if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP)) {
                     return;
                 }
             }
+
+            soundManager->playMenuMusic();
             
         }
         break;
@@ -158,6 +170,7 @@ void Presenter::startGame()
                     enemyList.push_back(enemyFactory->createEnemy(1, vista->getScreenWidth(), vista->getScreenHeight()));
                     level1ContadorCiclos++;
                     level1Frames = 0;
+                    enemyList.push_back(enemyFactory->createEnemy(2, vista->getScreenWidth(), vista->getScreenHeight()));
                 }
                 else {
                     level1Frames++;
@@ -270,7 +283,8 @@ void Presenter::startGame()
         } 
         break;
         case NIVEL1:
-        {
+        {   
+
             //NIVEL 1 - Iniciamos Musica y Graficos
             //Musica
             soundManager->playLvl1Music();
@@ -294,12 +308,14 @@ void Presenter::startGame()
                     else {
                         superSpeed = true;
                         superSpeedTime = 300;
+                        mainShip->setShootDelay(0.5);
                         mainShip->setSpeed(5);
                         delete power;
                     }
 
                     PowerUpEnPantalla = false;
                     contadorPowerUp = 0;
+                    soundManager->playSoundPowerUP();
                 }
             } //Fin colisiones PowerUPS
 
@@ -317,6 +333,7 @@ void Presenter::startGame()
                 if (superSpeedTime == 0) {
                     superSpeed = false;
                     mainShip->setSpeed(3);
+                    mainShip->setShootDelay(1);
                 }
                 else {
                     superSpeedTime--;
@@ -353,7 +370,8 @@ void Presenter::startGame()
             //User Interface (UI)
             ui->MarcoVida();
             ui->vidaActual(mainShip->getHealth());
-            DrawText(TextFormat("Score: %i", Score), vista->getScreenWidth() - 100, 10, 20, LIGHTGRAY); //Score
+            ui->printLives(mainShip->getLives());
+            DrawText(TextFormat("Score: %i", Score), vista->getScreenWidth() - 150, 10, 20, LIGHTGRAY); //Score
 
 
             // Movimiento JUGADOR 
@@ -376,8 +394,14 @@ void Presenter::startGame()
             if (IsKeyDown(KEY_SPACE)) { 
                 if (!shooted) {
                     Projectile* p;
-                    if (megaShot)  p = PFactory->createProjectile(3, indexProj, mainShip->getPosition(), 270, false);
-                    else p = PFactory->createProjectile(1, indexProj, mainShip->getPosition(), 270, false);
+                    if (megaShot) {  
+                        p = PFactory->createProjectile(3, indexProj, mainShip->getPosition(), 270, false);
+                        soundManager->playSoundMegaShoot();
+                    }
+                    else { 
+                        p = PFactory->createProjectile(1, indexProj, mainShip->getPosition(), 270, false);
+                        soundManager->playSoundShoot();
+                    }
                     listaProyectiles.push_back(p);
                     shootPassTime = 0;
                     shooted = true;
@@ -406,6 +430,7 @@ void Presenter::startGame()
                         Explosion* e = new Explosion(mainShip->getPosition(), true);
                         explosionManager.push_back(e); 
                         mainShip->tookDamage(listaProyectiles[i]->getDamageDone());
+                        soundManager->playSoundExplosion();
                         //Si tenemos 0 vidas automaticamente volvemos al menú principal. Pero podemos imprimir algo acá con WaitTime();
                         //If vidas = 0 GAME OVER 
                         // Agregar chek de vidas restantes
@@ -415,6 +440,7 @@ void Presenter::startGame()
                         Explosion* e = new Explosion(mainShip->getPosition(), false);
                         explosionManager.push_back(e);
                         mainShip->tookDamage(listaProyectiles[i]->getDamageDone());
+                        soundManager->playSoundDamage();
                     }
                     listaProyectiles.erase(listaProyectiles.begin() + i);
                     break;
@@ -425,11 +451,15 @@ void Presenter::startGame()
                         if (enemyList[j]->doesItKillme(listaProyectiles[i]->getDamageDone())) {//Si el daño lo mata, mostrar explosion y borrar de la lista enemigos.
                             Explosion* exp = new Explosion(enemyList[j]->getPos(), true);
                             explosionManager.push_back(exp);
+                            soundManager->playSoundExplosion();
                             enemyList.erase(enemyList.begin() + j);
+                            Score += 50;
                         }
                         else {
                             enemyList[j]->tookDamage(listaProyectiles[i]->getDamageDone());
                             Explosion* miniExp = new Explosion(enemyList[j]->getPos(), false);
+                            soundManager->playSoundDamage();
+                            Score += 5;
                         }
                         listaProyectiles.erase(listaProyectiles.begin() + i);
                         break; // VER - No puede borrarse si sigue en el ciclo, próxima vuelta referencia a un proyectil que no existe.
@@ -450,7 +480,9 @@ void Presenter::startGame()
                     if (mainShip->doesItKillme(50)){ //50 de daño por colisión directa.
                         Explosion* e = new Explosion(mainShip->getPosition(), true);
                         explosionManager.push_back(e);
-                        mainShip->tookDamage(50);
+                        mainShip->tookDamage(enemyList[q]->getDamage()+20);
+                        Score += 50;
+                        // SONIDO DE EXPLOSION??
                         //Si tenemos 0 vidas automaticamente volvemos al menú principal. Pero podemos imprimir algo acá con WaitTime();
                         //If vidas = 0 GAME OVER 
                         // Agregar chek de vidas restantes
@@ -460,10 +492,12 @@ void Presenter::startGame()
                         Explosion* e = new Explosion(mainShip->getPosition(), false);
                         explosionManager.push_back(e);
                         mainShip->tookDamage(50);
+                        soundManager->playSoundDamage();
                     }
                     Explosion* destroyedShip = new Explosion(enemyList[q]->getPos(), true);
                     explosionManager.push_back(destroyedShip);
                     enemyList.erase(enemyList.begin() + q);
+                    soundManager->playSoundExplosion();
                     break;
                 }
             }
@@ -472,9 +506,18 @@ void Presenter::startGame()
             for (int enemigos = 0; enemigos<enemyList.size(); enemigos++) {
                 if (enemyList[enemigos]->canShoot()) {
                 listaProyectiles.push_back(PFactory->createProjectile(2, indexProj, enemyList[enemigos]->getPos(), 90, true));
+                soundManager->playSoundEnemyShoot();
                 }
                 enemyList[enemigos]->movementMechanics();
+                //Borramos enemigos OFFSCREEN
+                if (enemyList[enemigos]->isOffScreen()) {
+                    enemyList.erase(enemyList.begin() + enemigos);
+                    break;
+                }
             }
+
+            
+
 
         }
         break;

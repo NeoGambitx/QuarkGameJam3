@@ -27,7 +27,7 @@ EnemyShip::EnemyShip(int screenWidth, int screenHeight)
 	this->frame = 0; // 4 Frames
 	this->shootDelay = 1;
 	this->reloadTime = 0;
-
+	this->screenLimit = screenHeight + 30;
 	if (this->position.x <= screenWidth / 2) this->derecha = true; //Si esta del lado izq de la pantalla se cruza hacia la derecha
 	else this->derecha = false; //Sino se cruza a la izquierda
 }
@@ -113,4 +113,13 @@ bool EnemyShip::canShoot() {
 		this->reloadTime++;
 		return false;
 	}
+}
+
+bool EnemyShip::isOffScreen() {
+	if (this->position.y >= this->screenLimit) return true;
+	else return false;
+}
+
+int EnemyShip::getDamage() {
+	return this->damage;
 }

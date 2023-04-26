@@ -20,7 +20,7 @@ Ship::Ship(int windowsWidth, int windowsHeight) {
 	this->mainShipRec.y = 0;
 	this->playerSpeed = 3;
 	this->mainShipframe = 0; // 4 Frames
-	this->shootDelay = 1.5;
+	this->shootDelay = 1;
 
 	this->originalPos.x = mainShipPos.x;
 	this->originalPos.y = mainShipPos.y;
@@ -140,6 +140,10 @@ void Ship::moveLeft() { //A - arrow left
 
 float Ship::getShootDelay() {
 	return this->shootDelay;
+}
+
+void Ship::setShootDelay(float delay) {
+	this->shootDelay = delay;
 }
 
 Rectangle Ship::getCollisionBox() { //Toma los datos en tiempo real y devuelve el box de colision.

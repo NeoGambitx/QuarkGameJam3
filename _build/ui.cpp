@@ -23,7 +23,7 @@ UI::UI(int screenW, int screenH) {
 
     // > UI Marco - BarraVida / 2 Frames - Normal y titilando para mostrar daño
     this->marcoVidaPos.x = screenW / 15;
-    this->marcoVidaPos.y = screenH - 80;
+    this->marcoVidaPos.y = screenH - 120;
     this->marcoVidaRec.width = this->marcoVida.width / 2; //2 Frames
     this->marcoVidaRec.height = this->marcoVida.height;
     this->marcoVidaRec.x = 0;
@@ -32,12 +32,22 @@ UI::UI(int screenW, int screenH) {
 
     // > UI - Barras de VIDA variables // 11 frames - Vacio (muerte) 10 barras %
     this->barraVidaPos.x = screenW / 15 - 1;
-    this->barraVidaPos.y = screenH - 80;
+    this->barraVidaPos.y = screenH - 120;
     this->barraVidaRec.width = barraVida.width / 11; //11 Frames
     this->barraVidaRec.height = barraVida.height;
     this->barraVidaRec.x = 0;
     this->barraVidaRec.y = 0;
     this->barraVidaFrame = 0;
+
+    // UI - LIVES
+    this->lives = LoadTexture("resources/sprites/ui/player/vida/lives.png");
+    this->livesPos.x = screenW /15;
+    this->livesPos.y = screenH - 60;
+    this->livesRec.width = this->lives.width / 3;
+    this->livesRec.height = this->lives.height;
+    this->livesRec.x = 0;
+    this->livesRec.y = 0;
+    this->livesFrame = 0;
 }
 
 void UI::menuPbotonPlay() {
@@ -84,4 +94,11 @@ void UI::printPointer(int opcion) {
     else {
         DrawTexture(this->pointer, this->salirBtnPos.x - 30, this->salirBtnPos.y + 30, WHITE);
     }
+}
+
+void UI::printLives(int lives) {
+    if (lives == 3) this->livesRec.x = 2 * this->livesRec.width;
+    else if(lives == 2) this->livesRec.x = 1 * this->livesRec.width;
+    else this->livesRec.x = 0 * this->livesRec.width;
+    DrawTextureRec(this->lives, this->livesRec, this->livesPos, WHITE);
 }
