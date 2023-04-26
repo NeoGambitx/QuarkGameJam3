@@ -14,6 +14,10 @@ private:
 	Texture2D mainShipFullHealth;
 	Texture2D mainShipDamaged;
 	Texture2D mainShipVeryDamaged;
+	//Standard Ship
+	Texture2D standardShipFullHealth;
+	Texture2D standardShipDamaged;
+	Texture2D standardShipVeryDamaged;
 	//LEVEL 3 SHIP
 	Texture2D superShipFullHealth;
 	Texture2D superShipDamaged;
@@ -54,4 +58,7 @@ public:
 	void setShootDelay(float delay);
 	Rectangle getCollisionBox();
 	bool doesItKillme(int damage);
+	void switchMainShip(bool super);
+	//void superMoveLeft(); no llego a agregarlos...
+	//void superMoveRight();
 };

@@ -128,6 +128,9 @@ void Presenter::startGame()
                     level1Frames = 0;
                     explosionManager.clear();
                     PowerUpEnPantalla = false;
+                    Score = 0;
+                    queNivelES = 1;
+                    mainShip->switchMainShip(false);
                     WaitTime(2);
                     vista->setCurrentScreen(PROLOGUE);
                 }
@@ -178,6 +181,7 @@ void Presenter::startGame()
                       break;
         case PREG1:
         {
+            soundManager->playDialogMusic();
             if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
             else framesCounter++;
 
@@ -189,6 +193,7 @@ void Presenter::startGame()
         break;
         case PREG2:
         {
+            soundManager->playDialogMusic();
             if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
             else framesCounter++;
 
@@ -200,6 +205,7 @@ void Presenter::startGame()
         break;
         case PREG3:
         {
+            soundManager->playDialogMusic();
             if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
             else framesCounter++;
 
@@ -210,6 +216,7 @@ void Presenter::startGame()
         } break;
         case PRELVL1:
         {   
+            soundManager->playDialogMusic();
             if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
             else framesCounter++;
 
@@ -217,19 +224,22 @@ void Presenter::startGame()
         } break;
         case POSTLVL1:
         {
-            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
-            else framesCounter++;
-
-            if (IsKeyDown(KEY_ENTER)) {               
-                vista->setCurrentScreen(PRELVL2); 
-            }
-        }break;
-        case PRELVL2:
-        {
+            soundManager->playDialogMusic();
             if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
             else framesCounter++;
 
             if (IsKeyDown(KEY_ENTER)) {
+                framesCounter = 0;
+                vista->setCurrentScreen(PRELVL2); 
+            }
+        }break;
+        case PRELVL2:
+        {   
+            soundManager->playDialogMusic();
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER) && framesCounter > 120) {
                 //ARMAMOS LVL2 - MODIFICAR VARIABLES Y DEMAS
                 mainShip->setHealth(100);
                 enemyList.clear();
@@ -239,7 +249,7 @@ void Presenter::startGame()
                 explosionManager.clear();
                 PowerUpEnPantalla = false;
                 queNivelES = 2;
-                level1Ciclos = 10;
+                level1Ciclos = 20; //20
                 //delayPowerUPs = 300;
                 //respawnTime = 120; // 2 segundos al comienzo
 
@@ -249,7 +259,107 @@ void Presenter::startGame()
         }break;
         case POSTLVL2:
         {
+            soundManager->playDialogMusic();
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
 
+            if (IsKeyDown(KEY_ENTER)) {
+                framesCounter = 0;
+                vista->setCurrentScreen(PRELVL3);
+            }
+        }break;
+        case PRELVL3:
+        {
+            soundManager->playDialogMusic();
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER) && framesCounter > 120) {
+                //ARMAMOS LVL3 - MODIFICAR VARIABLES Y DEMAS
+                mainShip->setHealth(100);
+                enemyList.clear();
+                listaProyectiles.clear();
+                level1ContadorCiclos = 0;
+                level1Frames = 0;
+                explosionManager.clear();
+                PowerUpEnPantalla = false;
+                queNivelES = 3;
+                level1Ciclos = 25; //25
+                //delayPowerUPs = 300;
+                respawnTime = 100; // 2 segundos al comienzo
+
+                WaitTime(2);
+                vista->setCurrentScreen(NIVEL1); // 2 seg. Para evitar BUFFER
+            }
+        }break;
+        case POSTLVL3:
+        {
+            soundManager->playDialogMusic();
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER)) {
+                framesCounter = 0;
+                vista->setCurrentScreen(PRELVLF);
+            }
+        }break;
+        case PRELVLF:
+        {
+            soundManager->playDialogMusic();
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER) && framesCounter > 120) {
+                //ARMAMOS LVL4FINAL - MODIFICAR VARIABLES Y DEMAS
+                mainShip->setHealth(100);
+                mainShip->switchMainShip(true);
+                enemyList.clear();
+                listaProyectiles.clear();
+                level1ContadorCiclos = 0;
+                level1Frames = 0;
+                explosionManager.clear();
+                PowerUpEnPantalla = false;
+                queNivelES = 4;
+                level1Ciclos = 30; //30
+                delayPowerUPs = 150;
+                respawnTime = 140; // 2 segundos al comienzo
+
+                WaitTime(2);
+                vista->setCurrentScreen(NIVEL1); // 2 seg. Para evitar BUFFER
+            }
+        }break;
+        case POSTLVLF:
+        {
+            soundManager->playEpilogueMusic();
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER) && framesCounter > 120) {
+                framesCounter = 0;
+                vista->setCurrentScreen(POSTLVLF2);
+            }
+        }break;
+        case POSTLVLF2:
+        {
+            soundManager->playEpilogueMusic();
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER) && framesCounter > 120) {
+                framesCounter = 0;
+                vista->setCurrentScreen(POSTLVLF3);
+            }
+        }break;
+        case POSTLVLF3:
+        {
+            soundManager->playEpilogueMusic();
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER) && framesCounter > 120) {
+                soundManager->playSoundSelect();
+                vista->setCurrentScreen(ENDING);
+            }
         }break;
         case NIVEL1:
         {   
@@ -284,11 +394,12 @@ void Presenter::startGame()
                         if(level1ContadorCiclos%2 == 0)enemyList.push_back(enemyFactory->createEnemy(3, vista->getScreenWidth(), vista->getScreenHeight())); // vez x medio
                     }
                     else { // TODOS LOS ENEMIGOS + FINAL BOSS
+                        enemyList.push_back(enemyFactory->createEnemy(1, vista->getScreenWidth(), vista->getScreenHeight())); //Doble explorador
                         enemyList.push_back(enemyFactory->createEnemy(1, vista->getScreenWidth(), vista->getScreenHeight()));
                         enemyList.push_back(enemyFactory->createEnemy(2, vista->getScreenWidth(), vista->getScreenHeight()));
-                        enemyList.push_back(enemyFactory->createEnemy(3, vista->getScreenWidth(), vista->getScreenHeight()));
+                        if(level1ContadorCiclos%3 == 0)enemyList.push_back(enemyFactory->createEnemy(3, vista->getScreenWidth(), vista->getScreenHeight()));
 
-                        if (level1ContadorCiclos == level1Ciclos / 2) { //SUPER BOSS
+                        if (level1ContadorCiclos == 5) { //SUPER BOSS en el 5to Ciclo
                             enemyList.push_back(enemyFactory->createEnemy(4, vista->getScreenWidth(), vista->getScreenHeight()));
                         }
                     }
@@ -305,87 +416,48 @@ void Presenter::startGame()
             if (level1ContadorCiclos == level1Ciclos && enemyList.size() == 0) {
                 if (queNivelES == 1) {
                     soundManager->playSoundVictory();
-                    WaitTime(5);
+                    WaitTime(7);
+                    framesCounter = 0;
                     vista->setCurrentScreen(POSTLVL1);
                 }
                 else if (queNivelES == 2) {
                     soundManager->playSoundVictory();
-                    WaitTime(5);
+                    WaitTime(7);
+                    framesCounter = 0;
                     vista->setCurrentScreen(POSTLVL2);
                 }
                 else if (queNivelES == 3) {
                     soundManager->playSoundVictory();
-                    WaitTime(5);
+                    WaitTime(7);
+                    framesCounter = 0;
                     vista->setCurrentScreen(POSTLVL3);
                 }
                 else {
                     WaitTime(2);
                     soundManager->playSoundVictory();
-                    WaitTime(5);
+                    WaitTime(7);
+                    framesCounter = 0;
                     vista->setCurrentScreen(POSTLVLF);
                 }
             } 
             
-            if (mainShip->getLives() == 0) vista->setCurrentScreen(TITLE);
-            
-            
-            
-            /*while (EXIT_LEVEL == false)
-            {
-
-                //enemyShips.push_back(enemyFactory->createEnemy(1));
-                //Sleep(2000 * (rand() % 3));
-                //enemyObstacles.push_back(enemyFactory->createEnemy(2));
-                //Sleep(3000 * rand() % 2);
-                // Level two
-
-                //Prueba ▼ ▼
-                Ship* s = new Ship(rand() % 2, rand() % 5);
-                enemies.push_back(s);
-
-                count++;
-                if (count == CYCLES_BEFORE_LEVEL_END)
-                {
-                    EXIT_LEVEL = true;
-                }
+            if (mainShip->getLives() == 0) { 
+                soundManager->playGameOverSound();
+                WaitTime(4);
+                framesCounter = 0;
+                vista->setCurrentScreen(TITLE);
             }
 
-            //this->enterTransition();
-
-            */
-            // OBJETIVOS A CUMPLIR PARA AVANZAR AL NIVEL 2 - 
-            /*
-            switch (currentLevel)
-            {
-                // Level one
-            case 1:
-                enemyShips.push_back(enemyFactory->createEnemy(1));
-                //Sleep(2000 * (rand() % 3));
-                enemyObstacles.push_back(enemyFactory->createEnemy(2));
-                //Sleep(3000 * rand() % 2);
-                // Level two
-            case 2:
-                enemyShips.push_back(enemyFactory->createEnemy(1));
-                //Sleep(1500 * (rand() % 3));
-                enemyObstacles.push_back(enemyFactory->createEnemy(2));
-                //Sleep(2000 * (rand() % 2));
-
-                // Level three
-            case 3:
-                enemyShips.push_back(enemyFactory->createEnemy(1));
-                //Sleep(1000 * (rand() % 3));
-                enemyObstacles.push_back(enemyFactory->createEnemy(2));
-                //Sleep(1500 * (rand() % 2));
-            default:
-                continue;
-            }*/
         }
         break;
         case ENDING:
-        {
+        {   
             // PATANALLA FINAL - CREDITOS 
+            soundManager->playEpilogueMusic();
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-            {
+            {   
+                soundManager->playSoundStart();
+                WaitTime(2);
                 vista->setCurrentScreen(TITLE);
             }
         }
@@ -426,7 +498,7 @@ void Presenter::startGame()
         break; 
         case PROLOGUE: {
             //DrawText(TextSubtext(story->intro, 0, framesCounter / 10), 10, 10, 20, MAROON);
-            DrawTextureEx(gameBg->introBg, gameBg->bgPos, 0, 1, WHITE);
+            DrawTexture(gameBg->introBg, 0, 0, WHITE);
             DrawText(TextSubtext(story->intro, 0, framesCounter / 10), 15, 150, 20, WHITE);
             
         } 
@@ -479,6 +551,43 @@ void Presenter::startGame()
         {
             DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
             DrawText(TextSubtext(story->lvl2Outro, 0, framesCounter / 10), 10, 200, 20, WHITE);
+        }break;
+        case PRELVL3:
+        {
+            DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->lvl3Intro, 0, framesCounter / 10), 10, 200, 20, WHITE);
+        }break;
+        case POSTLVL3:
+        {
+            DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->lvl3Outro, 0, framesCounter / 10), 10, 200, 20, WHITE);
+        }break;
+        case PRELVLF:
+        {
+            DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->finalLevelIntro, 0, framesCounter / 10), 10, 200, 20, WHITE);
+        }break;
+        case PRELVLF2:
+        {
+            DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->finalLevelIntro2, 0, framesCounter / 10), 10, 200, 20, WHITE);
+        }break;
+        case POSTLVLF:
+        {
+            //DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->introFinal, 0, framesCounter / 10), 10, 200, 20, WHITE);
+        }break;
+        case POSTLVLF2:
+        {
+            DrawText(story->finalDialog1, 170, 30, 20, RED);
+            DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->finalDialog2, 0, framesCounter / 10), 10, 200, 20, WHITE);
+            DrawTextureEx(characters->mainCharacterImg, characters->comanPosPregResp, 0.0, 0.25, WHITE);
+        }break;
+        case POSTLVLF3:
+        {
+            DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->finalDialog3, 0, framesCounter / 10), 10, 200, 20, WHITE);
         }break;
         case NIVEL1:
         {   
@@ -709,10 +818,12 @@ void Presenter::startGame()
                         mainShip->tookDamage(50);
                         soundManager->playSoundDamage();
                     }
-                    Explosion* destroyedShip = new Explosion(enemyList[q]->getPos(), true);
-                    explosionManager.push_back(destroyedShip);
-                    enemyList.erase(enemyList.begin() + q);
-                    soundManager->playSoundExplosion();
+                    if (!enemyList[q]->isTheSuperBoss()) {
+                        Explosion* destroyedShip = new Explosion(enemyList[q]->getPos(), true);
+                        explosionManager.push_back(destroyedShip);
+                        enemyList.erase(enemyList.begin() + q);
+                        soundManager->playSoundExplosion();
+                    }
                     break;
                 }
             }
@@ -744,10 +855,9 @@ void Presenter::startGame()
         break;
         case ENDING:
         {
-            // TODO: Draw ENDING screen here!
-            DrawRectangle(0, 0, vista->getScreenWidth(), vista->getScreenHeight(), BLUE);
-            DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
-            DrawText("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 120, 220, 20, DARKBLUE);
+            DrawTexture(gameBg->introBg, 0, 0, WHITE);
+            DrawText(TextSubtext("GRACIAS POR JUGAR \n\n\n- Equipo 8 Quark Academy - \nGame Jam 3", 0, framesCounter / 10), 10, 200, 20, WHITE);
+            DrawText(TextFormat("Score: %i", Score), vista->getScreenWidth() - 150, vista->getScreenHeight() - 100, 20, LIGHTGRAY); //Score
         }
         break;
         default:

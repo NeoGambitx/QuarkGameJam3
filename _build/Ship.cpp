@@ -3,9 +3,12 @@
 // Class constructor -  FEDE: Modifico -- Depende de la vista para ubicar inicialmente (diferente resolucion diferente POS)
 Ship::Ship(int windowsWidth, int windowsHeight) {
 	//Cargamos Otros Sprites
-	this->mainShipFullHealth = LoadTexture("resources/sprites/player/mainShip100.png");
-	this->mainShipDamaged = LoadTexture("resources/sprites/player/mainShip70.png");
-	this->mainShipVeryDamaged = LoadTexture("resources/sprites/player/mainShip30.png");
+	this->standardShipFullHealth = LoadTexture("resources/sprites/player/mainShip100.png");
+	this->standardShipDamaged = LoadTexture("resources/sprites/player/mainShip70.png");
+	this->standardShipVeryDamaged = LoadTexture("resources/sprites/player/mainShip30.png");
+	this->mainShipFullHealth = this->standardShipFullHealth;
+	this->mainShipDamaged = this->standardShipDamaged;
+	this->mainShipVeryDamaged = this->standardShipVeryDamaged;
 	this->superShipFullHealth = LoadTexture("resources/sprites/player/novaShip.png");
 	this->superShipDamaged = LoadTexture("resources/sprites/player/novaShip70.png");
 	this->superShipVeryDamaged = LoadTexture("resources/sprites/player/novaShip30.png");
@@ -97,7 +100,7 @@ void Ship::setSpeed(int speed) {
 }
 
 void Ship::tookDamage(int damage) {
-	if (damage > this->health) {
+	if (damage >= this->health) {
 		this->lives--;
 		if (this->lives > 0) { 
 			this->health = 100;
@@ -164,6 +167,24 @@ bool Ship::doesItKillme(int damage) {
 	}
 }
 
+void Ship::switchMainShip(bool super) {
+	if (super) {
+		this->mainShipFullHealth = this->superShipFullHealth;
+		this->mainShipDamaged = this->superShipDamaged;
+		this->mainShipVeryDamaged = this->superShipVeryDamaged;
+		this->mainShipRec.height = this->mainShipFullHealth.height;
+		this->mainShipRec.width = this->mainShipFullHealth.width / 4;
+		this->mainShipSprite = mainShipFullHealth;
+	}
+	else {
+		this->mainShipFullHealth = this->standardShipFullHealth;
+		this->mainShipDamaged = this->standardShipDamaged;
+		this->mainShipVeryDamaged = this->standardShipVeryDamaged;
+		this->mainShipRec.height = this->mainShipFullHealth.height;
+		this->mainShipRec.width = this->mainShipFullHealth.width / 4;
+		this->mainShipSprite = mainShipFullHealth;
+	}
+}
 
 // Class destructor
 Ship::~Ship() {

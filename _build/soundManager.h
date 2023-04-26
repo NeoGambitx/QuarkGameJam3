@@ -25,7 +25,7 @@ class SoundManager {
     Sound damage;
     Sound kamikaze;
     Sound superCanonShoot;
-    
+    Sound gameOver;
 
         //Title and Victory 3 - Title and Victory
     Sound startGame;
@@ -58,4 +58,5 @@ class SoundManager {
         void playSoundKamikaze();
         void playSoundSuperCannonShoot();
         void playSoundDamage();
+        void playGameOverSound();
 };

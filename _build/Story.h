@@ -29,14 +29,14 @@ public:
 	
 	
 	// Level 2 
-	const char lvl2Intro[160] = "En la siguiente fase de tu entrenamiento \ntendras que ademas de matar las naves, \nesquivar los asteroides.El contacto con estos \ndañan tu nave.";
+	const char lvl2Intro[160] = "En la siguiente fase de tu entrenamiento \ntendras que ademas de matar las naves, \nesquivar los asteroides.El contacto con estos \npuede ser mortal.";
 	const char lvl2Outro[50] = "Soldado, su avance es maravilloso.";
 	
 	
 	
 	// Level 3 
 	const char lvl3Intro[250] = "Decidimos que esta sea su ultima simulacion \nantes de la simulacion final. \nEn esta simulacion sus rivales \nseran las naves de defensa, \nestas tienen una estructura dificil \nde flanquear, pero su ataque es debil.";
-	const char lvl3Outro[65] = "Excelente desempeño soldado, \nestas lista para la prueba fianl";
+	const char lvl3Outro[85] = "Excelente demostracion de habilidades soldado, \nestas listo para la prueba final";
 	
 	
 	// Final Level
@@ -47,7 +47,7 @@ public:
 	// Dialogo Final
 	const char introFinal[150] = "Luego de tu victoria \nla sala quedo en silencio, \nlos lideres se retiraron de la sala, \nno hicieron ningun ademan por tu victoria.";
 	//Oficial
-	const char finalDialog1[75] = "Finalmente hemos ganado la batalla contra los Xenoides.";
+	const char finalDialog1[75] = "Finalmente hemos ganado la batalla \ncontra los Xenoides.";
 	//Player
 	const char finalDialog2[50] = "¿Como que hemos ganado la batalla?";
 	//Oficial 

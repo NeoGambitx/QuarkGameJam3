@@ -19,7 +19,7 @@ EnemyShip::EnemyShip(int screenWidth, int screenHeight, int tipo)
 		this->health = 10;
 		this->sprite = LoadTexture("resources/sprites/enemies/explorador.png");
 		this->speed = 3;
-		this->shootDelay = 1;
+		this->shootDelay = 0.9;
 		this->isSuperBoss = false;
 	}
 	else if (tipo == 2) { // DEFENSA
@@ -27,7 +27,7 @@ EnemyShip::EnemyShip(int screenWidth, int screenHeight, int tipo)
 		this->health = 30;
 		this->sprite = LoadTexture("resources/sprites/enemies/CrabShip-sheet.png");
 		this->speed = 2;
-		this->shootDelay = 1.2;
+		this->shootDelay = 1.1;
 		this->isSuperBoss = false;
 	}
 	else {
@@ -35,7 +35,7 @@ EnemyShip::EnemyShip(int screenWidth, int screenHeight, int tipo)
 		this->health = 500;
 		this->sprite = LoadTexture("resources/sprites/enemies/nodriza.png");
 		this->speed = 1;
-		this->shootDelay = 2;
+		this->shootDelay = 1.6;
 		this->isSuperBoss = true;
 	}
 

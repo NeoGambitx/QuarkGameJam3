@@ -65,7 +65,7 @@ void UI::MarcoVida() {
 void UI::vidaActual(int vida) {
     int x = 10;
     if (vida == 100) x = 0;
-    else if (vida >= 90 && vida < 100) x = 1;
+    else if (vida >= 90 && vida < 130) x = 1;
     else if (vida >= 80) x = 2;
     else if (vida >= 70) x = 3;
     else if (vida >= 60) x = 4;

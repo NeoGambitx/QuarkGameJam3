@@ -18,6 +18,7 @@ SoundManager::SoundManager() {
 	this->startGame = LoadSound("resources/sound/inicio.wav");
 	this->victory = LoadSound("resources/sound/victory.mp3");
 	this->select = LoadSound("resources/sound/select.mp3");
+	this->gameOver = LoadSound("resources/sound/gameOver.mp3");
 
 	//Effectos Sonidos extra
 	this->enemyShoot = LoadSound("resources/sound/effects/enemyShoot.wav");
@@ -121,6 +122,10 @@ void SoundManager::playSoundSuperCannonShoot() {
 
 void SoundManager::playSoundMegaShoot() {
 	PlaySound(this->superShoot);
+}
+
+void SoundManager::playGameOverSound() {
+	PlaySound(this->gameOver);
 }
 
 SoundManager::~SoundManager() {
