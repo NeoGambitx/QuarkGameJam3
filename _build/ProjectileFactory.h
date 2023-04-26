@@ -6,8 +6,8 @@ class ProjectileFactory
 public:
 	ProjectileFactory() {}
 	~ProjectileFactory() {}
-	Projectile* createProjectile(int claseDeProjectil, int indice, Vector2 Pos, float rotation, bool _isAnEnemyShoot)
+	Projectile* createProjectile(int posx, int posy)
 	{
-		return new Projectile(claseDeProjectil, indice, Pos, rotation, _isAnEnemyShoot);
+		return new Projectile(posx, posy);
 	}
 };

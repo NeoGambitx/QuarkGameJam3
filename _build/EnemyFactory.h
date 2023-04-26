@@ -7,5 +7,5 @@ class EnemyFactory
 public:
 	EnemyFactory();
 	~EnemyFactory();
-	Enemy* createEnemy(int enemyType, int width, int height);
+	Enemy* createEnemy(int enemyType);
 };

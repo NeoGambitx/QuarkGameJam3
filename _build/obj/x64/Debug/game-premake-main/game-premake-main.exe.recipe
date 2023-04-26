@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Feder\source\repos\QuarkGameJam3\_bin\Debug\game-premake-main.exe</FullPath>
+      <FullPath>C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_bin\Debug\game-premake-main.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

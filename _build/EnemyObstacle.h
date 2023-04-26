@@ -4,17 +4,11 @@
 class EnemyObstacle : public Enemy
 {
 public:
-	EnemyObstacle(int screenWidth, int screenHeight);
+	EnemyObstacle();
 	~EnemyObstacle();
-	virtual void movementMechanics() override;
-	virtual Texture2D getTexture() override;
-	virtual Vector2 getPos() override;
-	virtual Rectangle getRec() override;
-	virtual void animacion() override;
-	virtual Rectangle getCollisionBox() override;
-	virtual bool doesItKillme(int damage) override;
-	virtual void tookDamage(int damage) override;
-	virtual bool canShoot() override;
-	bool isOffScreen();
-	int getDamage();
+	int getPositionX() override;
+	void setPositionX(int posX) override;
+	int getPositionY() override;
+	void setPositionY(int posy) override;
+	void movementMechanics() override;
 };

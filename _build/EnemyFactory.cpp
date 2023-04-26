@@ -6,16 +6,16 @@ EnemyFactory::EnemyFactory() {}
 
 EnemyFactory::~EnemyFactory() {}
 
-Enemy* EnemyFactory::createEnemy(int enemyType, int width, int height)
+Enemy* EnemyFactory::createEnemy(int enemyType)
 {
 	int option = enemyType;
 
 	switch (option)
 	{
 	case 1:
-		return new EnemyShip(width, height);
+		return new EnemyShip;
 	case 2:
-		return new EnemyObstacle(width, height);
+		return new EnemyObstacle;
 	default:
 		return nullptr;
 	}

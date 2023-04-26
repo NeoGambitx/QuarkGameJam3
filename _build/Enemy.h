@@ -1,31 +1,17 @@
 #pragma once
-#include <raylib.h>
 class Enemy
 {
 protected:
-	int health; // = 100 - Modifico, valor iniciado en constructor
-	int damage;
-	Texture2D sprite;
-	Vector2 position;
-	Rectangle rec;
-	Rectangle collisionBox;
-	int speed;
-	int frame;
-	float shootDelay;
-	int screenLimit;
-
+	int positionX = 0;
+	int positionY = 0;
+	int damage = 0;
+	int health = 0;
 public:
 	Enemy() {}
 	//virtual ~Enemy() = 0;
+	virtual int getPositionX() = 0;
+	virtual void setPositionX(int posX) = 0;
+	virtual int getPositionY() = 0;
+	virtual void setPositionY(int posy) = 0;
 	virtual void movementMechanics() = 0;
-	virtual Texture2D getTexture() = 0;
-	virtual Vector2 getPos() = 0;
-	virtual Rectangle getRec() = 0;
-	virtual void animacion() = 0;
-	virtual Rectangle getCollisionBox() = 0;
-	virtual bool doesItKillme(int damage) = 0;
-	virtual void tookDamage(int damage) = 0;
-	virtual bool canShoot() = 0;
-	virtual bool isOffScreen() = 0;
-	virtual int getDamage() = 0;
 };

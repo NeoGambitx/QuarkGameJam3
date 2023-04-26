@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 // Lo arme de la siguiente manera para que nos sea mas facil llamarlo de donde organicemos los pasos de inicio y demas de cada nivel, 
 // no se si esta bien, chequeenlo, porfas.
@@ -7,23 +8,22 @@ class Story
 {
 public:
 	char playerName[20];
-	const char intro[400] = "El mundo esta siendo amenazado por una raza alienigena\nllamada los Xenoides, estos seres estan decididos a destruir\nla humanidad. Se estan liderando batallas de las cuales la\nmayoria de los habitantes de la Tierra no estan al tanto.\nLos comandantes estan buscando nuevos reclutas\nque tengan las cualidades necesarias para poder hacer\nfrente a esta batalla en aumento.";
+	const char intro[400] = "El mundo esta siendo amenazado por una raza \nalienigena llamada los Xenoides, estos seres \nestan decididos a destruir la humanidad. \nSe estan liderando batallas de las cuales la \nmayoria de los habitantes de la Tierra no estan \nal tanto. Los comandantes estan buscando nuevos \nreclutas que tengan las cualidades necesarias para \npoder hacer frente a esta batalla en aumento.";
 	//oficial:
-	const char dialog1[300] = "Soy el comandante Johnson. Hemos revisado tus habilidades\ny he venido hasta aqui para invitarte a formar parte de la\nAcademia de Batalla, para que recibas entrenamiento y nos ayudes en nuestra lucha con los Xenoides.";
-	//Parte de intercambio de preguntas
-		//Oficial inicio
-	const char dialog2[100] = "Se que debes estar confundido y debes tener preguntas, estoy aqui para responderlas.";
+	const char dialog1[1000] = "Soy el comandante Johnson. Hemos revisado tus habilidades \ny he venido hasta aqui para invitarte a formar parte de \nla Academia de Batalla, para que recibas entrenamiento \ny nos ayudes en nuestra lucha con los Xenoides. \n\nSe que debes estar confundido y debes tener preguntas, \nestoy aqui para responderlas. \n \n  1. Que es la Academia de Batalla? \n  2. Que son los Xenoides? \n  3. No tengo mas preguntas, estoy listo para \n    empezar mi entrenamiento.\n\n  *Presiona el numero de pregunta que quieras elegir.";
+	
+	//Parte de intercambio de preguntas	
 	// Opcion de Pregunta 1
-	const char preg1[50] = "¿Que es la Academia de Batalla?";
+	const char preg1[50] = "1. Que es la Academia de Batalla?";
 	// Respuesta1
-	const char resp1[300] = "La Academia de Batalla es una institucion militar espacial donde los jovenes prodigios son entrenados en estrategias de combate y habilidades de liderazgo. Tendras que enfrentarte a desafios cada vez mas dificiles para convertirte en comandante y poder comandar tu propia flota.";
+	const char resp1[300] = "La Academia de Batalla es una institucion \nmilitar espacial donde los jovenes prodigios son \nentrenados en estrategias de combate y \nhabilidades de liderazgo. Tendras que \nenfrentarte a desafios cada vez mas dificiles\npara convertirte en comandante y poder \ncomandar tu propia flota.";
 	// Opcion de Pregunta 2
-	const char preg2[50] = "¿Que son los Xenoides?";
+	const char preg2[50] = "2. Que son los Xenoides?";
 	// Respuesta 2
-	const char resp2[250] = "Los Xenoides son una raza alienigena muy inteligente y agresiva. Hemos estado siguiendo sus pasos por años, han destruido planetas enteros. Cualquier especie diferente a ellos la consideran enemiga.";
+	const char resp2[250] = "Los Xenoides son una raza alienigena muy \ninteligente y agresiva. Hemos estado siguiendo \nsus pasos por años, han destruido planetas\n enteros. Cualquier especie diferente a ellos la \nconsideran enemiga.";
 	// opcion 3 --> opcion de salida
-	const char preg3[100] = "No tengo mas preguntas, estoy listo para empezar mi entrenamiento.";
-	const char resp3[150] = "El comandante te escolta hasta una nave que te lleva a una estacion espacial donde estas por comenzar con tu entrenamiento…";
+	const char preg3[100] = "3. No tengo mas preguntas, estoy listo para \nempezar mi entrenamiento.";
+	const char resp3[200] = "El comandante te escolta hasta una nave que \nte lleva a una estacion espacial donde estas \npor comenzar con tu entrenamiento. \n \n \nSi estas listo para comenzar, presiona ENTER";
 	// Level 1 
 	const char lvl1Intro[200] = "En tu primera simulacion te enfrentaras a las naves exploradoras, estas naves estan preparadas para realizar ataques, su defensa es muy escasa.";
 	const char lvl1Outro[150] = "Bien hecho soldado, haz pasado la primera simulacion con exito.";

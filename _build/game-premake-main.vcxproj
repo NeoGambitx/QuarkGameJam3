@@ -258,8 +258,6 @@
     <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="EnemyObstacle.h" />
     <ClInclude Include="EnemyShip.h" />
-    <ClInclude Include="explosion.h" />
-    <ClInclude Include="powerUP.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Presenter.h" />
@@ -274,9 +272,7 @@
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="EnemyObstacle.cpp" />
     <ClCompile Include="EnemyShip.cpp" />
-    <ClCompile Include="explosion.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="powerUP.cpp" />
     <ClCompile Include="Presenter.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Ship.cpp" />

@@ -1,6 +1,7 @@
 ﻿#include "background.h"
 
 GameBG::GameBG() {
+	introBg = LoadTexture("resources/sprites/map/Planet.png");
 	Texture2D bgNivel1 = LoadTexture("resources/sprites/map/blueNebula.png");
 	this->bgNivel.push_back(bgNivel1);
 	this->bgY = 0;
@@ -10,6 +11,7 @@ GameBG::GameBG() {
 }
 
 GameBG::~GameBG() {
+	UnloadTexture(this->introBg);
 	for (int i = 0; i < this->bgNivel.size(); i++)
 	{
 		UnloadTexture(this->bgNivel[i]);

@@ -3,7 +3,6 @@
 #include "Enemy.h"
 #include <vector>
 #include "Ship.h"
-#include "Projectile.h"
 
 // Para mostrar las diferentes escenas
 
@@ -12,7 +11,14 @@ typedef enum GameScreen
 	LOGO = 0,
 	TITLE,
 	PROLOGUE,
+	QUESTIONS,
+	PREG1,
+	PREG2,
+	PREG3,
 	NIVEL1,
+	NIVEL2,
+	NIVEL3,
+	NIVEL_FINAL,
 	ENDING
 } GameScreen;
 
@@ -33,14 +39,7 @@ class View
 		int getScreenWidth();
 		int getScreenHeight();
 		void printSpriteSheet(Texture2D texture, Rectangle rec, Vector2 v2);
-		void printSprite(Texture2D texture, Vector2 pos, Color tint);
-		void printProjectiles(std::vector<Projectile*> proyectiles);
-		void printEnemigos(std::vector<Enemy*> listaEnemigos);
-		void animarEnemies(std::vector<Enemy*> listaEnemigis);
-		void animarProjectiles(std::vector<Projectile*> proyectiles);
-		void moverProjectiles(std::vector<Projectile*> proyectiles);
 		void setCurrentScreen(GameScreen gs);
-		void transition(Color c);
 		GameScreen getCurrentScreen();
 };
 

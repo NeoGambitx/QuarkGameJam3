@@ -18,54 +18,43 @@ Presenter::~Presenter()
 void Presenter::startGame()
 {   
     // -> Vista - Sonido
-    View* vista = new View(640, 576, 60, "Proyecto HyperNova"); //Iniciamos VISTA
+    View* vista = new View(640, 576, 60, "Nombre del Juego"); //Iniciamos VISTA
     vista->inicializarScreen();
     UI* ui = new UI(vista->getScreenWidth(), vista->getScreenHeight()); //Iniciamos UI
     vista->setCurrentScreen(LOGO); //Iniciamos el GameScreen en LOGO
     SoundManager* soundManager = new SoundManager(); //Sonido
     GameBG* gameBg = new GameBG(); //Iniciamos GameBG
     Story* story = new Story();
-    Color transitionColor = BLACK;
-    bool transitionComplete{};
-    int opcionTitulo = 1;
+    Characters* characters = new Characters(); // inicio personajes
 
     // -> Player - Enemigos - Mecánicas
     Ship* mainShip = new Ship(vista->getScreenWidth(), vista->getScreenHeight());
-    bool megaShot{}; // True = con megaShot
-    bool superSpeed{}; // True = con superSpeed;
-    int megaShotTime{}; // Tiempo para usar megaShot
-    int superSpeedTime{}; // TIempo para usar superSpeed
     EnemyFactory* enemyFactory = new EnemyFactory;
-    std::vector<Enemy*> enemyList;
-    bool PowerUpEnPantalla{};
-    int contadorPowerUp{};
-    PowerUP* power;
 
     // -> Variables LOCALES
     int framesCounter = 0; //Para llevar cuenta de FPS -> 60 = 1 segundo
     const float updateTime{ 1.0 / 12.0 }; //Tiempo para realizar la siguiente animacion
     float  runningTime{}; //Tiempo para realizar la siguiente animacion
     int Score{}; //Puntaje (Cada destruccion de naves, debería sumar x Puntos)
-    
-    //NIVEL1
-    bool level1Exit = false;
-    const int level1Ciclos = 60;
-    int level1ContadorCiclos{};
-    int level1Frames = 0;
+    //TEST - PRUEBA 
+    Vector2 newPos; //Variable auxiliar para modificar la posicion de la nave
+    Rectangle enemyShipBox;
+    Rectangle MainShipBox;
 
-    //Colisiones
-    std::vector<Explosion*> explosionManager;
+    //Enemigos
+    // - Fighter basico - EXTERNALIZAR y borrar
+    /**/Texture2D fighter = LoadTexture("resources/sprites/enemies/fighter.png");
+    Vector2 fighterPos{ vista->getScreenWidth() / 2, vista->getScreenHeight() / 20 };
+    Rectangle figherRec;
+    figherRec.width = fighter.width / 4;
+    figherRec.height = fighter.height;
+    figherRec.x = 0;
+    figherRec.y = 0;
+    int figherFrame{};
+    // SE BORRA ▲ ▲
 
-    
 
-    //Poyectiles
-    ProjectileFactory* PFactory = new ProjectileFactory();
-    std::vector<Projectile*> listaProyectiles;
-    int indexProj = 0;
-    bool shooted = false;
-    float shootPassTime = 0;
 
-    //enemyFactory->createEnemy(1, vista->getScreenWidth(), vista->getScreenHeight())
     // Main LOOP -
     while (WindowShouldClose() == false)
     {
@@ -77,111 +66,80 @@ void Presenter::startGame()
             // TODO: Update LOGO screen variables here!
             framesCounter++; // Count frames
             // Wait for 2 seconds (120 frames) before jumping to TITLE screen
-            if (!transitionComplete) {
-                if (transitionColor.a == 0) {
-                    transitionComplete = true;
-                    WaitTime(2);
-                }
-                else {
-                    transitionColor.a -= 5;
-                }
-            }
-            else {
-                if (transitionColor.a != 255) {
-                transitionColor.a += 5;
-                }
-            }
-            
             if (framesCounter > 120)
             {
                 vista->setCurrentScreen(TITLE);
             }
-
         }
         break;
         case TITLE:
         {
             // TODO: Update TITLE screen variables here!
 
-            // Press enter to change to NIVEL1 screen
-            if (opcionTitulo == 1) {
-                
-                if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) || IsKeyPressed(KEY_S)) {
-                    opcionTitulo = 2;
-                    soundManager->playSoundSelect();
-                }
-
-                if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-                {   
-                    soundManager->playSoundStart();
-                    //Reiniciamos Variables para comenzar NIVEL 1 (Por si pierde y vuelve a intentar)
-                    mainShip->setLives(3);
-                    mainShip->setHealth(100);
-                    enemyList.clear();
-                    listaProyectiles.clear();
-                    level1ContadorCiclos = 0;
-                    level1Frames = 0;
-                    explosionManager.clear();
-                    PowerUpEnPantalla = false;
-                    WaitTime(2);
-                    vista->setCurrentScreen(PROLOGUE);
-                }
+            // Press enter to change to Prologue screen
+            if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
+            {
+                soundManager->playSoundStart();
+                WaitTime(2);
+                vista->setCurrentScreen(PROLOGUE);
             }
-            else {
-                if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) || IsKeyPressed(KEY_S)) {
-                    opcionTitulo = 1;
-                    soundManager->playSoundSelect();
-                }
-                if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP)) {
-                    return;
-                }
-            }
-
-            soundManager->playMenuMusic();
-            
         }
         break;
         case PROLOGUE: {
-            
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER)) vista->setCurrentScreen(QUESTIONS);   
+        } 
+        break;
+        case QUESTIONS: {
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_KP_1)) vista->setCurrentScreen(PREG1);
+            if (IsKeyDown(KEY_KP_2)) vista->setCurrentScreen(PREG2);
+            if (IsKeyDown(KEY_KP_3)) vista->setCurrentScreen(PREG3);
+        } 
+                             
+        break;
+        case PREG1:
+        {
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER)) vista->setCurrentScreen(QUESTIONS);
+        }
+        break;
+        case PREG2:
+        {
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER)) vista->setCurrentScreen(QUESTIONS);
+        }
+        break;
+        case PREG3:
+        {
             if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
             else framesCounter++;
 
             if (IsKeyDown(KEY_ENTER)) vista->setCurrentScreen(NIVEL1);
-        } break;
+        }
+        break;
         case NIVEL1:
         {   
-            contadorPowerUp++;
-            if (!PowerUpEnPantalla && contadorPowerUp >= 300) { //Si pasaron 5 segundos sin aparecer un POWER UP
-                power = new PowerUP(vista->getScreenWidth(), vista->getScreenHeight());
-                PowerUpEnPantalla = true;
-            }
-            else if (PowerUpEnPantalla){
-                if (power->isOffScreen()) {
-                    //delete power;
-                    contadorPowerUp = 0;
-                    PowerUpEnPantalla = false;
-                }
-            }          
-            //Vamos añadiendo enemigos en el NIVEL 1
             
-           
-            if (level1ContadorCiclos < level1Ciclos) {
-                if (level1Frames >= 120) { //Si pasaron 2 seg generar enemigo
-                    enemyList.push_back(enemyFactory->createEnemy(1, vista->getScreenWidth(), vista->getScreenHeight()));
-                    level1ContadorCiclos++;
-                    level1Frames = 0;
-                    enemyList.push_back(enemyFactory->createEnemy(2, vista->getScreenWidth(), vista->getScreenHeight()));
-                }
-                else {
-                    level1Frames++;
-                }
-            }
-            //Si terminamos de generar enemigos, y estan todos muertos pasamos de nivel
-            if (level1ContadorCiclos == level1Ciclos && enemyList.size() == 0) vista->setCurrentScreen(ENDING); 
+            // TODO: Update NIVEL1 screen variables here!
+            //int initialPosition = INITIAL_SHIP_POSITION;  //Definido en la clase SHIP
+            srand(time(NULL));
+
             
-            if (mainShip->getLives() == 0) vista->setCurrentScreen(TITLE);
-            
-            
+
+            //ship->setPosition(initialPosition);
+
+            bool EXIT_LEVEL = false;
+            unsigned const int CYCLES_BEFORE_LEVEL_END = 60;
+            int count = 0;
             
             /*while (EXIT_LEVEL == false)
             {
@@ -234,6 +192,21 @@ void Presenter::startGame()
             }*/
         }
         break;
+        case NIVEL2:
+        {
+
+        }
+        break;
+        case NIVEL3:
+        {
+
+        }
+        break;
+        case NIVEL_FINAL:
+        {
+
+        }
+        break;
         case ENDING:
         {
             // PATANALLA FINAL - CREDITOS 
@@ -264,260 +237,183 @@ void Presenter::startGame()
         {
         case LOGO:
         {
-            ui->printLogo();
-            vista->transition(transitionColor);
+            // TODO: Draw LOGO screen here!
+            DrawText("PANTALLA DE LOGO ", 20, 20, 40, LIGHTGRAY);
+            DrawText("ESPERA 2 SEGUNDOS...", vista->getScreenWidth() / 2 - 100, vista->getScreenHeight() / 2, 20, GRAY);
         }
         break;
         case TITLE:
         {
-            // Pantalla de título
-            ui->printMenuPBg();
-            ui->printPointer(opcionTitulo);
+            // TODO: Draw TITLE screen here!
+            DrawRectangle(0, 0, vista->getScreenWidth(), vista->getScreenHeight(), SKYBLUE);
+            DrawText("PANTALLA - MENU PRINCIPAL", 20, 20, 20, GRAY);
+            //vista->ui.menuPbotonPlay();
+            //vista->ui.menuPbotonSalir();
             ui->menuPbotonPlay();
             ui->menuPbotonSalir();
+
         }
         break; 
         case PROLOGUE: {
-            DrawText(TextSubtext(story->intro, 0, framesCounter / 10), 10, 10, 20, MAROON);
-            
+            DrawTextureEx(gameBg->introBg, gameBg->bgPos, 0, 2.15, WHITE);
+            DrawText(TextSubtext(story->intro, 0, framesCounter / 10), 50, 150, 20, WHITE);
         } 
         break;
+        case QUESTIONS: {
+            DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->dialog1, 0, framesCounter / 10), 10, 150, 20, WHITE);
+        }
+        break;
+        case PREG1:
+        {
+            DrawText(story->preg1, 170, 30, 20, RED);
+            DrawTextureEx(characters->mainCharacterImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->resp1, 0, framesCounter / 10), 10, 200, 20, WHITE);
+            DrawTextureEx(characters->comandanteImg, characters->comanPosPregResp, 0.0, 0.25, WHITE);
+        }
+        break;
+        case PREG2:
+        {
+            DrawText(story->preg2, 170, 30, 20, RED);
+            DrawTextureEx(characters->mainCharacterImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->resp2, 0, framesCounter / 10), 10, 200, 20, WHITE);
+            DrawTextureEx(characters->comandanteImg, characters->comanPosPregResp, 0.0, 0.25, WHITE);
+        }
+        break;
+        case PREG3:
+        {
+            DrawText(story->preg3, 170, 30, 20, RED);
+            DrawTextureEx(characters->mainCharacterImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->resp3, 0, framesCounter / 10), 10, 200, 20, WHITE);
+            DrawTextureEx(characters->comandanteImg, characters->comanPosPregResp, 0.0, 0.25, WHITE);
+        }
+        break;
         case NIVEL1:
-        {   
-
+        {
             //NIVEL 1 - Iniciamos Musica y Graficos
             //Musica
             soundManager->playLvl1Music();
+
+
             //Codigo Fondo - BG
             gameBg->pintarBg(0, dt);
 
-            //Power UPS
-            if (PowerUpEnPantalla) {
-                power->printPowerUP();
-                //Colisiones MAIN SHIP con POWER UPS
-                if (CheckCollisionRecs(mainShip->getCollisionBox(), power->getCollisionBox())) {
-                    if (power->getTipo() == 1) {
-                        mainShip->setHealth(100); //1 = VIDA + 100
-                        delete power;
-                    }
-                    else if (power->getTipo() == 2) {
-                        megaShot = true;
-                        megaShotTime = 300; // 300 / 60 = 5 Segundos;
-                        delete power;
-                    }
-                    else {
-                        superSpeed = true;
-                        superSpeedTime = 300;
-                        mainShip->setShootDelay(0.5);
-                        mainShip->setSpeed(5);
-                        delete power;
-                    }
 
-                    PowerUpEnPantalla = false;
-                    contadorPowerUp = 0;
-                    soundManager->playSoundPowerUP();
-                }
-            } //Fin colisiones PowerUPS
+            //  JUGADOR
 
-            //Verificando PowerUps - Manejando Tiempos
-            if (megaShot) {
-                if (megaShotTime == 0) {
-                    megaShot = false;
-                }
-                else {
-                    megaShotTime--;
-                }
-            }
-
-            if (superSpeed) {
-                if (superSpeedTime == 0) {
-                    superSpeed = false;
-                    mainShip->setSpeed(3);
-                    mainShip->setShootDelay(1);
-                }
-                else {
-                    superSpeedTime--;
-                }
-            }// Fin PowerUps
-            
-       
-            //ANIMACIONES - Update Time
             // actualizar RunningTime
             runningTime += dt;
+
             if (runningTime >= updateTime) {
                 /* runningTime = 0; */
                 //Animamos proximo frame
-                vista->animarProjectiles(listaProyectiles); //Projectiles
-                mainShip->animacion(); // Main Ship
-                vista->animarEnemies(enemyList); //Enemigos - Asteroides y naves
-                
-                //Chequeamos si la animacion de la explosión termino y borramos del vector
-                for (int z = 0; z < explosionManager.size(); z++) {
-                    explosionManager[z]->animar();
-                    explosionManager[z]->mostrarExplosion();
-                    if (explosionManager[z]->isItDone()) {
-                      explosionManager.erase(explosionManager.begin() + z);
-                    }
-                }
-
-                runningTime = 0; // Reset Running Time (limita la animacion)
+                mainShip->animacion();
             }
-
-           
-            //Jugador
             vista->printSpriteSheet(mainShip->getTexture(), mainShip->getRec(), mainShip->getPosition());
             
-            //User Interface (UI)
+            //Test
+            //Colisiones funcionando, ver de agregar un RECTAGULO A LA CLASE SHIP y ENEMY
+            //Este rectangulo tiene que tener estos datos, la altura y anchura del sprite,
+            // y la posicion en tiempo real de las naves. Para poder calcular las colisiones. Debería ser la nave Principal vs VECTOR de ENEMIGOS.
+            enemyShipBox.height = fighter.height;
+            enemyShipBox.width = fighter.width;
+            enemyShipBox.x = fighterPos.x;
+            enemyShipBox.y = fighterPos.y;
+            MainShipBox.height = mainShip->getTexture().height;
+            MainShipBox.width = mainShip->getTexture().width;
+            MainShipBox.x = mainShip->getPosition().x;
+            MainShipBox.y = mainShip->getPosition().y;
+
+            if (CheckCollisionRecs(MainShipBox, enemyShipBox)) {
+                mainShip->tookDamage(10);
+            }
+            // TEST COLLISIONS
+            /*
+            // Marco Vida
+            if (runningTime >= updateTime) {
+                marcoVidaRec.x = marcoVidaFrame * marcoVidaRec.width;
+                marcoVidaFrame++;
+                if (marcoVidaFrame > 2) {
+                    marcoVidaFrame = 0;
+                }
+            }
+            DrawTextureRec(marcoVida, marcoVidaRec, marcoVidaPos, WHITE);
+
+            // Barra Vida
+            if (runningTime >= updateTime) {
+                barraVidaRec.x = barraVidaFrame * barraVidaRec.width;
+                barraVidaFrame++;
+                if (barraVidaFrame > 11) {
+                    barraVidaFrame = 0;
+                }
+            }
+            DrawTextureRec(barraVida, barraVidaRec, barraVidaPos, WHITE);
+            */
+            //vista->ui.MarcoVida();
+            //vista->ui.vidaActual();
             ui->MarcoVida();
             ui->vidaActual(mainShip->getHealth());
-            ui->printLives(mainShip->getLives());
-            DrawText(TextFormat("Score: %i", Score), vista->getScreenWidth() - 150, 10, 20, LIGHTGRAY); //Score
 
+            //Enemigos
+            if (runningTime >= updateTime) {
+                runningTime = 0;
+                figherRec.x = figherFrame * figherRec.width;
+                figherFrame++;
+                if (figherFrame > 4) {
+                    figherFrame = 0;
+                }
+            }
+            DrawTextureRec(fighter, figherRec, fighterPos, WHITE);
+
+ 
+       
+
+            //Score
+            DrawText(TextFormat("Score: %i", Score), vista->getScreenWidth() - 100, 10, 20, LIGHTGRAY);
+            // DAÑADO
 
             // Movimiento JUGADOR 
-            if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT) && mainShip->getPosition().x < vista->getScreenWidth())
+            
+            if (IsKeyDown(KEY_D) && mainShip->getPosition().x < vista->getScreenWidth())
             {   
-                mainShip->moveRight();
+                //es mejor con un método propio de SHIP, que tome 1 valor, X o Y, y lo modifique. 
+                //Pueden ser 4 funciones 1 para cada direccion o 1 sola con algun filtro de dirección
+                newPos = mainShip->getPosition();
+                newPos.x += mainShip->getSpeed();
+                mainShip->setPosition(newPos);
             }
-            if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT) && mainShip->getPosition().x > 0)
+            if (IsKeyDown(KEY_A) && mainShip->getPosition().x > 0)
             {   
-                mainShip->moveLeft();
+                newPos = mainShip->getPosition();
+                newPos.x -= mainShip->getSpeed();
+                mainShip->setPosition(newPos);
             }
-            if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN) && mainShip->getPosition().y < vista->getScreenHeight())
-            {   
-                mainShip->moveDown();
-            }
-            if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP) && mainShip->getPosition().y > 0)
+            if (IsKeyDown(KEY_S) && mainShip->getPosition().y < vista->getScreenHeight())
             {
-                mainShip->moveUp();
+                newPos = mainShip->getPosition();
+                newPos.y += mainShip->getSpeed();
+                mainShip->setPosition(newPos);
             }
-            if (IsKeyDown(KEY_SPACE)) { 
-                if (!shooted) {
-                    Projectile* p;
-                    if (megaShot) {  
-                        p = PFactory->createProjectile(3, indexProj, mainShip->getPosition(), 270, false);
-                        soundManager->playSoundMegaShoot();
-                    }
-                    else { 
-                        p = PFactory->createProjectile(1, indexProj, mainShip->getPosition(), 270, false);
-                        soundManager->playSoundShoot();
-                    }
-                    listaProyectiles.push_back(p);
-                    shootPassTime = 0;
-                    shooted = true;
-                }
+            if (IsKeyDown(KEY_W) && mainShip->getPosition().y > 0)
+            {
+                newPos = mainShip->getPosition();
+                newPos.y -= mainShip->getSpeed();
+                mainShip->setPosition(newPos);
             }
-            
-            //PROJECTILES
-            vista->printProjectiles(listaProyectiles);
-            shootPassTime++;
-            if (shootPassTime/60 > mainShip->getShootDelay()) {
-                shooted = false;
-            }
-            vista->moverProjectiles(listaProyectiles);
+        }
+        break;
+        case NIVEL2:
+        {
 
+        }
+        break;
+        case NIVEL3:
+        {
 
-
-            //ENEMIGOS
-            vista->printEnemigos(enemyList);
-            
-
-
-            //Colisiones -> Projectiles con Todo lo demás
-            for (int i = 0; i < listaProyectiles.size(); i++) { //Proyectil contra MAIN SHIP
-                if (CheckCollisionRecs(listaProyectiles[i]->getPositionAndScale(), mainShip->getCollisionBox()) && listaProyectiles[i]->isEnemyShoot()) {
-                    if (mainShip->doesItKillme(listaProyectiles[i]->getDamageDone())) {
-                        Explosion* e = new Explosion(mainShip->getPosition(), true);
-                        explosionManager.push_back(e); 
-                        mainShip->tookDamage(listaProyectiles[i]->getDamageDone());
-                        soundManager->playSoundExplosion();
-                        //Si tenemos 0 vidas automaticamente volvemos al menú principal. Pero podemos imprimir algo acá con WaitTime();
-                        //If vidas = 0 GAME OVER 
-                        // Agregar chek de vidas restantes
-                        //Agregar mensaje de Game OVER - Volver a menú inicial.
-                    }
-                    else {
-                        Explosion* e = new Explosion(mainShip->getPosition(), false);
-                        explosionManager.push_back(e);
-                        mainShip->tookDamage(listaProyectiles[i]->getDamageDone());
-                        soundManager->playSoundDamage();
-                    }
-                    listaProyectiles.erase(listaProyectiles.begin() + i);
-                    break;
-                }
-
-                for (int j=0; j<enemyList.size(); j++) {
-                    if (CheckCollisionRecs(listaProyectiles[i]->getPositionAndScale(), enemyList[j]->getCollisionBox()) && !listaProyectiles[i]->isEnemyShoot()) {
-                        if (enemyList[j]->doesItKillme(listaProyectiles[i]->getDamageDone())) {//Si el daño lo mata, mostrar explosion y borrar de la lista enemigos.
-                            Explosion* exp = new Explosion(enemyList[j]->getPos(), true);
-                            explosionManager.push_back(exp);
-                            soundManager->playSoundExplosion();
-                            enemyList.erase(enemyList.begin() + j);
-                            Score += 50;
-                        }
-                        else {
-                            enemyList[j]->tookDamage(listaProyectiles[i]->getDamageDone());
-                            Explosion* miniExp = new Explosion(enemyList[j]->getPos(), false);
-                            soundManager->playSoundDamage();
-                            Score += 5;
-                        }
-                        listaProyectiles.erase(listaProyectiles.begin() + i);
-                        break; // VER - No puede borrarse si sigue en el ciclo, próxima vuelta referencia a un proyectil que no existe.
-                    }
-                }
-            }
-
-            //Borramos Projectiles fuera de pantalla
-            for (int out = 0; out < listaProyectiles.size(); out++) {
-                if (listaProyectiles[out]->isOutOfBounds(vista->getScreenWidth(), vista->getScreenHeight())) {
-                    listaProyectiles.erase(listaProyectiles.begin() + out);
-                }
-            }
-
-            //Colisiones mainShip con NAVES Y obstaculos
-           for (int q = 0; q < enemyList.size(); q++) {
-                if (CheckCollisionRecs(enemyList[q]->getCollisionBox(), mainShip->getCollisionBox())) {
-                    if (mainShip->doesItKillme(50)){ //50 de daño por colisión directa.
-                        Explosion* e = new Explosion(mainShip->getPosition(), true);
-                        explosionManager.push_back(e);
-                        mainShip->tookDamage(enemyList[q]->getDamage()+20);
-                        Score += 50;
-                        // SONIDO DE EXPLOSION??
-                        //Si tenemos 0 vidas automaticamente volvemos al menú principal. Pero podemos imprimir algo acá con WaitTime();
-                        //If vidas = 0 GAME OVER 
-                        // Agregar chek de vidas restantes
-                        //Agregar mensaje de Game OVER - Volver a menú inicial.
-                    }
-                    else {
-                        Explosion* e = new Explosion(mainShip->getPosition(), false);
-                        explosionManager.push_back(e);
-                        mainShip->tookDamage(50);
-                        soundManager->playSoundDamage();
-                    }
-                    Explosion* destroyedShip = new Explosion(enemyList[q]->getPos(), true);
-                    explosionManager.push_back(destroyedShip);
-                    enemyList.erase(enemyList.begin() + q);
-                    soundManager->playSoundExplosion();
-                    break;
-                }
-            }
-
-            //Enemigos - Movimiento y ataque
-            for (int enemigos = 0; enemigos<enemyList.size(); enemigos++) {
-                if (enemyList[enemigos]->canShoot()) {
-                listaProyectiles.push_back(PFactory->createProjectile(2, indexProj, enemyList[enemigos]->getPos(), 90, true));
-                soundManager->playSoundEnemyShoot();
-                }
-                enemyList[enemigos]->movementMechanics();
-                //Borramos enemigos OFFSCREEN
-                if (enemyList[enemigos]->isOffScreen()) {
-                    enemyList.erase(enemyList.begin() + enemigos);
-                    break;
-                }
-            }
-
-            
-
+        }
+        break;
+        case NIVEL_FINAL:
+        {
 
         }
         break;

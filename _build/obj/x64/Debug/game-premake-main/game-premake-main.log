@@ -1,15 +1,34 @@
-﻿  EnemyFactory.cpp
-  Presenter.cpp
-C:\Users\Feder\source\repos\QuarkGameJam3\_build\Presenter.h(4,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-C:\Users\Feder\source\repos\QuarkGameJam3\_build\Presenter.cpp(46,40): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-C:\Users\Feder\source\repos\QuarkGameJam3\_build\Presenter.cpp(46,40): warning C4305: 'inicializando': truncamiento de 'double' a 'const float'
-  Ship.cpp
-C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(15,41): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(16,38): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(17,49): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(18,43): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  View.cpp
+﻿  Presenter.cpp
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.h(4,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(35,40): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(35,40): warning C4305: 'inicializando': truncamiento de 'double' a 'const float'
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(46,49): warning C4838: la conversión de 'int' en 'float' requiere una conversión de restricción
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(46,49): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(46,79): warning C4838: la conversión de 'int' en 'float' requiere una conversión de restricción
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(46,79): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(48,37): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(49,31): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(99,23): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(239,42): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(240,41): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(243,56): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.cpp(244,55): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
   main.cpp
-C:\Users\Feder\source\repos\QuarkGameJam3\_build\Presenter.h(4,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\Presenter.h(4,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
+  soundManager.cpp
+  ui.cpp
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\ui.cpp(6,38): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\ui.cpp(7,34): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\ui.cpp(8,39): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\ui.cpp(9,39): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\ui.cpp(20,36): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\ui.cpp(21,36): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\ui.cpp(22,54): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\ui.cpp(23,48): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\ui.cpp(29,41): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\ui.cpp(30,36): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\ui.cpp(31,48): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_build\ui.cpp(32,42): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
   Generando código...
-  game-premake-main.vcxproj -> C:\Users\Feder\source\repos\QuarkGameJam3\_bin\Debug\game-premake-main.exe
+  LINK : no se encontró ..\_bin\Debug\game-premake-main.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
+  game-premake-main.vcxproj -> C:\Users\Feder\source\repos\cpp-console-game\game-premake-main\_bin\Debug\game-premake-main.exe
