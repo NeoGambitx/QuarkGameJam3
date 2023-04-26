@@ -54,6 +54,9 @@
     <ClInclude Include="powerUP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Characters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Presenter.cpp">
@@ -93,6 +96,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="powerUP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="characters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

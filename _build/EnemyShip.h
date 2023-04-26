@@ -8,8 +8,11 @@ private:
 	int WhereInYcross;
 	bool derecha;
 	int reloadTime;
+	int tipo;
+	int limitXotherShips;
+	bool isSuperBoss;
 public:
-	EnemyShip(int screenWidth, int screenHeight);
+	EnemyShip(int screenWidth, int screenHeight, int tipo);
 	~EnemyShip();
 	void shoot();
 	void movementMechanics() override;
@@ -23,4 +26,5 @@ public:
 	bool canShoot();
 	bool isOffScreen();
 	int getDamage();
+	bool isTheSuperBoss();
 };

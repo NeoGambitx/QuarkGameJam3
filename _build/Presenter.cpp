@@ -28,6 +28,8 @@ void Presenter::startGame()
     Color transitionColor = BLACK;
     bool transitionComplete{};
     int opcionTitulo = 1;
+    Characters* characters = new Characters(); // inicio personajes
+
 
     // -> Player - Enemigos - Mecánicas
     Ship* mainShip = new Ship(vista->getScreenWidth(), vista->getScreenHeight());
@@ -47,11 +49,14 @@ void Presenter::startGame()
     float  runningTime{}; //Tiempo para realizar la siguiente animacion
     int Score{}; //Puntaje (Cada destruccion de naves, debería sumar x Puntos)
     
-    //NIVEL1
+    //NIVELES - 
     bool level1Exit = false;
-    const int level1Ciclos = 60;
+    int level1Ciclos = 10;
     int level1ContadorCiclos{};
     int level1Frames = 0;
+    int queNivelES = 1; // NIVELES 1, 2, 3 y FINAL
+    int delayPowerUPs = 300;
+    int respawnTime = 120; // 2 segundos al comienzo
 
     //Colisiones
     std::vector<Explosion*> explosionManager;
@@ -142,16 +147,114 @@ void Presenter::startGame()
         }
         break;
         case PROLOGUE: {
-            
+            soundManager->playPrologueMusic();
             if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
             else framesCounter++;
 
-            if (IsKeyDown(KEY_ENTER)) vista->setCurrentScreen(NIVEL1);
+            if (IsKeyDown(KEY_ENTER)) {
+                framesCounter = 0;
+                vista->setCurrentScreen(QUESTIONS);
+            }
+        }break;
+        case QUESTIONS: {
+            soundManager->playDialogMusic();
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_KP_1)) {
+                framesCounter = 0; 
+                vista->setCurrentScreen(PREG1);
+            }
+            if (IsKeyDown(KEY_KP_2)) { 
+                framesCounter = 0;
+                vista->setCurrentScreen(PREG2);
+            }
+            if (IsKeyDown(KEY_KP_3)) { 
+                vista->setCurrentScreen(PREG3);
+                framesCounter = 0;
+            }
+        }
+
+                      break;
+        case PREG1:
+        {
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER)) { 
+                framesCounter = 6000;
+                vista->setCurrentScreen(QUESTIONS);
+            }
+        }
+        break;
+        case PREG2:
+        {
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER)) {
+                framesCounter = 6000;
+                vista->setCurrentScreen(QUESTIONS);
+            }
+        }
+        break;
+        case PREG3:
+        {
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER)) { 
+                framesCounter = 0;
+                vista->setCurrentScreen(PRELVL1);
+            }
         } break;
+        case PRELVL1:
+        {   
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER) && framesCounter>120) vista->setCurrentScreen(NIVEL1); // 2 seg. Para evitar BUFFER
+        } break;
+        case POSTLVL1:
+        {
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER)) {               
+                vista->setCurrentScreen(PRELVL2); 
+            }
+        }break;
+        case PRELVL2:
+        {
+            if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            else framesCounter++;
+
+            if (IsKeyDown(KEY_ENTER)) {
+                //ARMAMOS LVL2 - MODIFICAR VARIABLES Y DEMAS
+                mainShip->setHealth(100);
+                enemyList.clear();
+                listaProyectiles.clear();
+                level1ContadorCiclos = 0;
+                level1Frames = 0;
+                explosionManager.clear();
+                PowerUpEnPantalla = false;
+                queNivelES = 2;
+                level1Ciclos = 10;
+                //delayPowerUPs = 300;
+                //respawnTime = 120; // 2 segundos al comienzo
+
+                WaitTime(2);
+                vista->setCurrentScreen(NIVEL1); // 2 seg. Para evitar BUFFER
+            } 
+        }break;
+        case POSTLVL2:
+        {
+
+        }break;
         case NIVEL1:
         {   
             contadorPowerUp++;
-            if (!PowerUpEnPantalla && contadorPowerUp >= 300) { //Si pasaron 5 segundos sin aparecer un POWER UP
+            if (!PowerUpEnPantalla && contadorPowerUp >= delayPowerUPs) { //Si pasaron X segundos sin aparecer un POWER UP
                 power = new PowerUP(vista->getScreenWidth(), vista->getScreenHeight());
                 PowerUpEnPantalla = true;
             }
@@ -166,18 +269,62 @@ void Presenter::startGame()
             
            
             if (level1ContadorCiclos < level1Ciclos) {
-                if (level1Frames >= 120) { //Si pasaron 2 seg generar enemigo
-                    enemyList.push_back(enemyFactory->createEnemy(1, vista->getScreenWidth(), vista->getScreenHeight()));
+                if (level1Frames >= respawnTime) { //Si pasaron X seg generar enemigo
+
+                    if (queNivelES == 1) { // SOLO EXPLORADORAS
+                        enemyList.push_back(enemyFactory->createEnemy(1, vista->getScreenWidth(), vista->getScreenHeight()));
+                    }
+                    else if (queNivelES == 2) { // NAVES EXPLORADORAS Y ASTEROIDES
+                        enemyList.push_back(enemyFactory->createEnemy(1, vista->getScreenWidth(), vista->getScreenHeight()));
+                        enemyList.push_back(enemyFactory->createEnemy(2, vista->getScreenWidth(), vista->getScreenHeight()));
+                    }
+                    else if (queNivelES == 3) { // NAVES EXP - ASTEROIDES y NAVES DE DEFENSA
+                        enemyList.push_back(enemyFactory->createEnemy(1, vista->getScreenWidth(), vista->getScreenHeight()));
+                        enemyList.push_back(enemyFactory->createEnemy(2, vista->getScreenWidth(), vista->getScreenHeight()));
+                        if(level1ContadorCiclos%2 == 0)enemyList.push_back(enemyFactory->createEnemy(3, vista->getScreenWidth(), vista->getScreenHeight())); // vez x medio
+                    }
+                    else { // TODOS LOS ENEMIGOS + FINAL BOSS
+                        enemyList.push_back(enemyFactory->createEnemy(1, vista->getScreenWidth(), vista->getScreenHeight()));
+                        enemyList.push_back(enemyFactory->createEnemy(2, vista->getScreenWidth(), vista->getScreenHeight()));
+                        enemyList.push_back(enemyFactory->createEnemy(3, vista->getScreenWidth(), vista->getScreenHeight()));
+
+                        if (level1ContadorCiclos == level1Ciclos / 2) { //SUPER BOSS
+                            enemyList.push_back(enemyFactory->createEnemy(4, vista->getScreenWidth(), vista->getScreenHeight()));
+                        }
+                    }
+                    
                     level1ContadorCiclos++;
                     level1Frames = 0;
-                    enemyList.push_back(enemyFactory->createEnemy(2, vista->getScreenWidth(), vista->getScreenHeight()));
+                    
                 }
                 else {
                     level1Frames++;
                 }
             }
             //Si terminamos de generar enemigos, y estan todos muertos pasamos de nivel
-            if (level1ContadorCiclos == level1Ciclos && enemyList.size() == 0) vista->setCurrentScreen(ENDING); 
+            if (level1ContadorCiclos == level1Ciclos && enemyList.size() == 0) {
+                if (queNivelES == 1) {
+                    soundManager->playSoundVictory();
+                    WaitTime(5);
+                    vista->setCurrentScreen(POSTLVL1);
+                }
+                else if (queNivelES == 2) {
+                    soundManager->playSoundVictory();
+                    WaitTime(5);
+                    vista->setCurrentScreen(POSTLVL2);
+                }
+                else if (queNivelES == 3) {
+                    soundManager->playSoundVictory();
+                    WaitTime(5);
+                    vista->setCurrentScreen(POSTLVL3);
+                }
+                else {
+                    WaitTime(2);
+                    soundManager->playSoundVictory();
+                    WaitTime(5);
+                    vista->setCurrentScreen(POSTLVLF);
+                }
+            } 
             
             if (mainShip->getLives() == 0) vista->setCurrentScreen(TITLE);
             
@@ -278,17 +425,85 @@ void Presenter::startGame()
         }
         break; 
         case PROLOGUE: {
-            DrawText(TextSubtext(story->intro, 0, framesCounter / 10), 10, 10, 20, MAROON);
+            //DrawText(TextSubtext(story->intro, 0, framesCounter / 10), 10, 10, 20, MAROON);
+            DrawTextureEx(gameBg->introBg, gameBg->bgPos, 0, 1, WHITE);
+            DrawText(TextSubtext(story->intro, 0, framesCounter / 10), 15, 150, 20, WHITE);
             
         } 
         break;
+        case QUESTIONS: {
+            DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->dialog1, 0, framesCounter / 10), 10, 150, 20, WHITE);
+        }
+                      break;
+        case PREG1:
+        {
+            DrawText(story->preg1, 170, 30, 20, RED);
+            DrawTextureEx(characters->mainCharacterImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->resp1, 0, framesCounter / 10), 10, 200, 20, WHITE);
+            DrawTextureEx(characters->comandanteImg, characters->comanPosPregResp, 0.0, 0.25, WHITE);
+        }
+        break;
+        case PREG2:
+        {
+            DrawText(story->preg2, 170, 30, 20, RED);
+            DrawTextureEx(characters->mainCharacterImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->resp2, 0, framesCounter / 10), 10, 200, 20, WHITE);
+            DrawTextureEx(characters->comandanteImg, characters->comanPosPregResp, 0.0, 0.25, WHITE);
+        }
+        break;
+        case PREG3:
+        {
+            DrawText(story->preg3, 170, 30, 20, RED);
+            DrawTextureEx(characters->mainCharacterImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->resp3, 0, framesCounter / 10), 10, 200, 20, WHITE);
+            DrawTextureEx(characters->comandanteImg, characters->comanPosPregResp, 0.0, 0.25, WHITE);
+        }
+        break;
+        case PRELVL1:
+        {   
+            DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->lvl1Intro, 0, framesCounter / 10), 10, 200, 20, WHITE);
+        }break;
+        case POSTLVL1:
+        {
+            DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->lvl1Outro, 0, framesCounter / 10), 10, 200, 20, WHITE);
+        }break;
+        case PRELVL2:
+        {
+            DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->lvl2Intro, 0, framesCounter / 10), 10, 200, 20, WHITE);
+        }break;
+        case POSTLVL2:
+        {
+            DrawTextureEx(characters->comandanteImg, characters->izqArribaPos, 0.0, 0.25, WHITE);
+            DrawText(TextSubtext(story->lvl2Outro, 0, framesCounter / 10), 10, 200, 20, WHITE);
+        }break;
         case NIVEL1:
         {   
 
             //NIVEL 1 - Iniciamos Musica y Graficos
             //Musica
-            soundManager->playLvl1Music();
+            
             //Codigo Fondo - BG
+            if (queNivelES == 1) {
+                soundManager->playLvl1Music();
+                gameBg->switchBG(1);
+            }
+            else if (queNivelES == 2) {
+                soundManager->playLvl2Music();
+                gameBg->switchBG(2);
+            }
+            else if (queNivelES == 3) {
+                soundManager->playLvl3Music();
+                gameBg->switchBG(3);
+            }
+            else {
+                soundManager->playBossMusic();
+                gameBg->switchBG(4);
+            }
+
             gameBg->pintarBg(0, dt);
 
             //Power UPS
@@ -505,8 +720,14 @@ void Presenter::startGame()
             //Enemigos - Movimiento y ataque
             for (int enemigos = 0; enemigos<enemyList.size(); enemigos++) {
                 if (enemyList[enemigos]->canShoot()) {
-                listaProyectiles.push_back(PFactory->createProjectile(2, indexProj, enemyList[enemigos]->getPos(), 90, true));
-                soundManager->playSoundEnemyShoot();
+                    if (enemyList[enemigos]->isTheSuperBoss()) {
+                        listaProyectiles.push_back(PFactory->createProjectile(4, indexProj, enemyList[enemigos]->getPos(), 90, true));
+                        soundManager->playSoundSuperCannonShoot();
+                    }
+                    else {
+                        listaProyectiles.push_back(PFactory->createProjectile(2, indexProj, enemyList[enemigos]->getPos(), 90, true));
+                        soundManager->playSoundEnemyShoot();
+                    }
                 }
                 enemyList[enemigos]->movementMechanics();
                 //Borramos enemigos OFFSCREEN

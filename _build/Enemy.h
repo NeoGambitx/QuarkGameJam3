@@ -28,4 +28,5 @@ public:
 	virtual bool canShoot() = 0;
 	virtual bool isOffScreen() = 0;
 	virtual int getDamage() = 0;
+	virtual bool isTheSuperBoss() = 0;
 };

@@ -26,6 +26,12 @@ Projectile::Projectile(int claseDeProjectil, int indice, Vector2 Pos, float rota
 		this->damage = 30;
 		this->projectileRec.width = projectileSprite.width / 4;
 	}break;
+	case 4: {
+		this->projectileSprite = LoadTexture("resources/sprites/fire/superCannonShot.png");
+		this->projectileSpeed = 7;
+		this->damage = 50;
+		this->projectileRec.width = projectileSprite.width / 6;
+	}break;
 	default:
 		break;
 	}

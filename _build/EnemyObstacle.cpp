@@ -98,3 +98,7 @@ bool EnemyObstacle::isOffScreen() {
 int EnemyObstacle::getDamage() {
 	return this->damage;
 }
+
+bool EnemyObstacle::isTheSuperBoss() {
+	return false;
+}

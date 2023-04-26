@@ -254,6 +254,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="background.h" />
+    <ClInclude Include="Characters.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="EnemyObstacle.h" />
@@ -271,6 +272,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="background.cpp" />
+    <ClCompile Include="characters.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="EnemyObstacle.cpp" />
     <ClCompile Include="EnemyShip.cpp" />

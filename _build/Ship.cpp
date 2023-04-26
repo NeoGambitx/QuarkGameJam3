@@ -24,7 +24,8 @@ Ship::Ship(int windowsWidth, int windowsHeight) {
 
 	this->originalPos.x = mainShipPos.x;
 	this->originalPos.y = mainShipPos.y;
-	
+	this->limitX = windowsWidth;
+	this->limitY = windowsHeight;
 }
 // Get ship health
 int Ship::getHealth()
@@ -123,19 +124,19 @@ void Ship::tookDamage(int damage) {
 }
 
 void Ship::moveDown() { //S arrow down
-	this->mainShipPos.y += this->playerSpeed;
+	if(this->mainShipPos.y < this->limitY-40) this->mainShipPos.y += this->playerSpeed;
 }
 
 void Ship::moveUp() { //W - arrow up
-	this->mainShipPos.y -= this->playerSpeed;
+	if(this->mainShipPos.y >10) this->mainShipPos.y -= this->playerSpeed;
 }
 
 void Ship::moveRight() {//D - arrow right
-	this->mainShipPos.x += this->playerSpeed;
+	if(this->mainShipPos.x < this->limitX-40)this->mainShipPos.x += this->playerSpeed;
 }
 
 void Ship::moveLeft() { //A - arrow left
-	this->mainShipPos.x -= this->playerSpeed;
+	if(this->mainShipPos.x > 10)this->mainShipPos.x -= this->playerSpeed;
 }
 
 float Ship::getShootDelay() {

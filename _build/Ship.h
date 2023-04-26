@@ -26,6 +26,8 @@ private:
 	Vector2 originalPos;
 	//Fin agregadas
 	float shootDelay;
+	int limitX;
+	int limitY;
 
 public:
 	Ship(int windowsWidth, int windowsHeight);

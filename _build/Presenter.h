@@ -19,7 +19,7 @@
 #include "ProjectileFactory.h"
 #include "explosion.h"
 #include "powerUP.h"
-
+#include "Characters.h"
 
 class Presenter
 {

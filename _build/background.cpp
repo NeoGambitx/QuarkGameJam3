@@ -1,7 +1,11 @@
 ﻿#include "background.h"
 
 GameBG::GameBG() {
-	Texture2D bgNivel1 = LoadTexture("resources/sprites/map/blueNebula.png");
+	introBg = LoadTexture("resources/sprites/map/Planet.png");
+	this->bgNivel1 = LoadTexture("resources/sprites/map/blueNebula.png");
+	this->bgNivel2 = LoadTexture("resources/sprites/map/starfields.png");
+	this->bgNivel3 = LoadTexture("resources/sprites/map/blueNebula2.png");
+	this->bgFinal = LoadTexture("resources/sprites/map/final.png");
 	this->bgNivel.push_back(bgNivel1);
 	this->bgY = 0;
 	this->bgPos.x = 0.0;
@@ -10,6 +14,7 @@ GameBG::GameBG() {
 }
 
 GameBG::~GameBG() {
+	UnloadTexture(this->introBg);
 	for (int i = 0; i < this->bgNivel.size(); i++)
 	{
 		UnloadTexture(this->bgNivel[i]);
@@ -35,3 +40,22 @@ void GameBG::pintarBg(int index, float dt) {
 	DrawTextureEx(this->bgNivel[index], bg2Pos, 0.0, 1, WHITE);
 	// ▲ ▲ ▲ Fin fondo
 };
+
+void GameBG::switchBG(int queBg) {
+	if (queBg == 1) {
+		this->bgNivel.clear();
+		this->bgNivel.push_back(bgNivel1);
+	}
+	else if (queBg == 2) {
+		this->bgNivel.clear();
+		this->bgNivel.push_back(bgNivel2);
+	}
+	else if (queBg == 3) {
+		this->bgNivel.clear();
+		this->bgNivel.push_back(bgNivel3);
+	}
+	else {
+		this->bgNivel.clear();
+		this->bgNivel.push_back(bgFinal);
+	}
+}

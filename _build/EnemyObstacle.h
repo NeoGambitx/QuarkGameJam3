@@ -17,4 +17,5 @@ public:
 	virtual bool canShoot() override;
 	bool isOffScreen();
 	int getDamage();
+	bool isTheSuperBoss();
 };

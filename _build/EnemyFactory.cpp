@@ -13,9 +13,13 @@ Enemy* EnemyFactory::createEnemy(int enemyType, int width, int height)
 	switch (option)
 	{
 	case 1:
-		return new EnemyShip(width, height);
+		return new EnemyShip(width, height, 1);
 	case 2:
 		return new EnemyObstacle(width, height);
+	case 3:
+		return new EnemyShip(width, height, 2);
+	case 4:
+		return new EnemyShip(width, height, 3);
 	default:
 		return nullptr;
 	}

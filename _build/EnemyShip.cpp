@@ -8,28 +8,50 @@
 #define VIEWPORT_WIDTH 100
 
 // Derived class constructor
-EnemyShip::EnemyShip(int screenWidth, int screenHeight)
+EnemyShip::EnemyShip(int screenWidth, int screenHeight, int tipo)
 {
 	int x = 20 + rand() % screenWidth + 1 - 40;
 	int vel = rand() % 5 + 1;
 	this->WhereInYcross = rand() % screenHeight - 100;
 
-	this->damage = 10;
-	this->health = 10;
-	this->sprite = LoadTexture("resources/sprites/enemies/explorador.png");
+	if (tipo == 1) { //Exploradora 
+		this->damage = 20;
+		this->health = 10;
+		this->sprite = LoadTexture("resources/sprites/enemies/explorador.png");
+		this->speed = 3;
+		this->shootDelay = 1;
+		this->isSuperBoss = false;
+	}
+	else if (tipo == 2) { // DEFENSA
+		this->damage = 10;
+		this->health = 30;
+		this->sprite = LoadTexture("resources/sprites/enemies/CrabShip-sheet.png");
+		this->speed = 2;
+		this->shootDelay = 1.2;
+		this->isSuperBoss = false;
+	}
+	else {
+		this->damage = 50;
+		this->health = 500;
+		this->sprite = LoadTexture("resources/sprites/enemies/nodriza.png");
+		this->speed = 1;
+		this->shootDelay = 2;
+		this->isSuperBoss = true;
+	}
+
 	this->position.x = x;
 	this->position.y = -50;
 	this->rec.width = this->sprite.width / 4;
 	this->rec.height = this->sprite.height;
 	this->rec.x = 0;
 	this->rec.y = 0;
-	this->speed = 2;
 	this->frame = 0; // 4 Frames
-	this->shootDelay = 1;
 	this->reloadTime = 0;
 	this->screenLimit = screenHeight + 30;
 	if (this->position.x <= screenWidth / 2) this->derecha = true; //Si esta del lado izq de la pantalla se cruza hacia la derecha
 	else this->derecha = false; //Sino se cruza a la izquierda
+	this->tipo = tipo;
+	this->limitXotherShips = screenWidth;
 }
 
 // Derived class destructor
@@ -73,12 +95,28 @@ void EnemyShip::shoot()
 // Movement mechanics
 void EnemyShip::movementMechanics()
 {
-	if (this->WhereInYcross >= this->position.y) {
-		this->position.y += this->speed;
-		if (derecha) this->position.x += this->speed;
-		else this->position.x -= this->speed;
+	if (this->tipo == 1) {
+		if (this->WhereInYcross >= this->position.y) {
+			this->position.y += this->speed;
+			if (derecha) this->position.x += this->speed;
+			else this->position.x -= this->speed;
+		}
+		else this->position.y += this->speed;
 	}
-	else this->position.y += this->speed;
+	else { //MOVIMIENTO DE DEFENSA Y NODRIZA
+		if (this->position.y <= 80) this->position.y += this->speed; // se mueve hacia abajo hasta cierto punto
+		if (derecha) { //Luego pasea de derecha a izquierda
+			this->position.x += this->speed;
+			if (this->position.x >= this->limitXotherShips) this->derecha = false;
+		}
+		else {
+			this->position.x -= this->speed;
+			if (this->position.x <= 30) this->derecha = true;
+		}
+		
+		
+
+	}
 }
 
 
@@ -122,4 +160,8 @@ bool EnemyShip::isOffScreen() {
 
 int EnemyShip::getDamage() {
 	return this->damage;
+}
+
+bool EnemyShip::isTheSuperBoss() {
+	return this->isSuperBoss;
 }
