@@ -1,0 +1,71 @@
+﻿  background.cpp
+  characters.cpp
+  EnemyFactory.cpp
+  EnemyObstacle.cpp
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\EnemyObstacle.cpp(30,21): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\EnemyObstacle.cpp(36,32): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\EnemyObstacle.cpp(37,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+  EnemyShip.cpp
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\EnemyShip.cpp(22,25): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\EnemyShip.cpp(30,25): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\EnemyShip.cpp(38,25): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\EnemyShip.cpp(42,21): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\EnemyShip.cpp(44,39): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\EnemyShip.cpp(45,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+  explosion.cpp
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\explosion.cpp(6,34): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\explosion.cpp(10,34): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\explosion.cpp(13,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\explosion.cpp(14,27): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+  main.cpp
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Presenter.h(4,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
+  powerUP.cpp
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\powerUP.cpp(22,16): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\powerUP.cpp(26,42): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\powerUP.cpp(27,41): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+  Presenter.cpp
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Presenter.h(4,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Presenter.cpp(48,40): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Presenter.cpp(48,40): warning C4305: 'inicializando': truncamiento de 'double' a 'const float'
+  Projectile.cpp
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Projectile.cpp(14,54): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Projectile.cpp(21,54): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Projectile.cpp(27,54): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Projectile.cpp(33,54): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Projectile.cpp(42,56): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Projectile.cpp(43,61): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Projectile.cpp(48,47): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+  Ship.cpp
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(18,41): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(19,38): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(20,49): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(21,43): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(175,54): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(176,60): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(183,54): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\Ship.cpp(184,60): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+  soundManager.cpp
+  ui.cpp
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(7,64): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(8,38): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(14,36): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(15,36): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(25,36): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(26,36): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(27,54): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(28,48): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(34,41): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(35,36): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(36,48): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(37,42): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(44,32): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(45,32): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(46,46): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(47,40): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(92,80): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(92,55): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(95,82): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Feder\source\repos\QuarkGameJam3\_build\ui.cpp(95,56): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+  View.cpp
+  Generando código...
+  game-premake-main.vcxproj -> C:\Users\Feder\source\repos\QuarkGameJam3\_bin\Release\game-premake-main.exe

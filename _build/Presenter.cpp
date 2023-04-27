@@ -164,15 +164,15 @@ void Presenter::startGame()
             if (IsKeyDown(KEY_SPACE)) framesCounter += 8;
             else framesCounter++;
 
-            if (IsKeyDown(KEY_KP_1)) {
+            if (IsKeyDown(KEY_KP_1) || IsKeyDown(KEY_ONE)){
                 framesCounter = 0; 
                 vista->setCurrentScreen(PREG1);
             }
-            if (IsKeyDown(KEY_KP_2)) { 
+            if (IsKeyDown(KEY_KP_2) || IsKeyDown(KEY_TWO)) {
                 framesCounter = 0;
                 vista->setCurrentScreen(PREG2);
             }
-            if (IsKeyDown(KEY_KP_3)) { 
+            if (IsKeyDown(KEY_KP_3) || IsKeyDown(KEY_THREE)) {
                 vista->setCurrentScreen(PREG3);
                 framesCounter = 0;
             }
